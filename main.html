@@ -454,15 +454,80 @@
   }
   .toast.show { opacity: 1; transform: translateY(0); }
 
+  /* Hamburger button */
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1000;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--sidebar-bg);
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #fff;
+    margin: 4px auto;
+    transition: all 0.3s;
+  }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 299;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .sidebar {
+      position: fixed;
+      left: -300px;
+      top: 0;
+      z-index: 300;
+      transition: left 0.3s ease;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    }
+    .sidebar.open { left: 0; }
+    .sidebar-overlay.open { display: block; }
+    .main { width: 100%; }
+    .topbar { padding: 12px 16px 12px 64px; }
+    .content { padding: 16px; }
+    .welcome { padding: 40px 16px; }
+    .banner-grid { flex-direction: column; align-items: center; }
+    .banner-card { width: 100%; max-width: 360px; }
+    .modal { min-width: auto; width: 90vw; padding: 24px 20px; }
+  }
+
   /* Print */
   @media print {
-    .sidebar, .topbar { display: none !important; }
+    .sidebar, .topbar, .hamburger { display: none !important; }
     .main { margin: 0; }
     .content { padding: 20px; }
   }
 </style>
 </head>
 <body>
+
+<!-- Hamburger -->
+<button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
+  <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <!-- Sidebar -->
 <aside class="sidebar">
@@ -642,7 +707,7 @@ function renderSidebar() {
       const item = document.createElement('div');
       item.className = 'nav-item' + (page.id === currentPageId ? ' active' : '');
       item.innerHTML = `<span class="icon">📄</span>${escapeHtml(page.title || '無題')}`;
-      item.onclick = () => viewPage(page.id);
+      item.onclick = () => { viewPage(page.id); closeSidebarOnMobile(); };
       section.appendChild(item);
       items.appendChild(item);
     });
@@ -872,6 +937,21 @@ document.addEventListener('keydown', (e) => {
     if (isEditing) savePage();
   }
 });
+
+// Sidebar toggle (mobile)
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+  document.getElementById('hamburgerBtn').classList.toggle('active');
+}
+// Close sidebar when nav item clicked on mobile
+function closeSidebarOnMobile() {
+  if (window.innerWidth <= 768) {
+    document.querySelector('.sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+    document.getElementById('hamburgerBtn').classList.remove('active');
+  }
+}
 
 // Init
 showWelcome();
