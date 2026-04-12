@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整体部門 | AILE SHIGA</title>
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-light: #e3f2fd;
+    --accent: #0d47a1;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #333;
+    --text-light: #666;
+    --border: #e0e0e0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Meiryo', 'Yu Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    color: #fff;
+    padding: 40px 40px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .header .back-link {
+    position: absolute;
+    top: 20px; left: 20px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .header .back-link:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .header h1 { font-size: 30px; font-weight: 700; margin-bottom: 6px; }
+  .header p { font-size: 15px; opacity: 0.85; }
+
+  /* Main tabs */
+  .main-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: linear-gradient(135deg, #1557b0, #0d47a1);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .main-tab {
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    user-select: none;
+    text-align: center;
+    min-width: 140px;
+  }
+  .main-tab:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+  .main-tab.active {
+    color: #fff;
+    border-bottom-color: #ffd54f;
+    background: rgba(255,255,255,0.1);
+  }
+  .main-tab .tab-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+  /* Tab content */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Sub navigation (for steps) */
+  .step-nav {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    position: sticky;
+    top: 67px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .step-nav a {
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-light);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .step-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+
+  /* Overview box */
+  .overview {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .overview h2 { font-size: 20px; margin-bottom: 15px; color: var(--accent); }
+
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px 0;
+  }
+  .flow-step {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 120px;
+  }
+  .flow-arrow { color: var(--primary); font-size: 20px; font-weight: 700; }
+
+  /* Step section */
+  .step-section {
+    background: var(--card);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .step-header {
+    padding: 22px 28px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .step-header .step-num { font-size: 34px; font-weight: 800; opacity: 0.3; line-height: 1; }
+  .step-header .step-info h3 { font-size: 20px; font-weight: 700; }
+  .step-header .step-info p { font-size: 13px; opacity: 0.85; }
+  .s1 .step-header { background: linear-gradient(135deg, #1a73e8, #1565c0); }
+  .s2 .step-header { background: linear-gradient(135deg, #1565c0, #0d47a1); }
+  .s3 .step-header { background: linear-gradient(135deg, #0d47a1, #01579b); }
+  .s4 .step-header { background: linear-gradient(135deg, #01579b, #006064); }
+  .s5 .step-header { background: linear-gradient(135deg, #006064, #004d40); }
+
+  .step-body { padding: 22px 28px; }
+
+  .sub-step {
+    border-left: 3px solid var(--primary);
+    padding: 10px 0 10px 18px;
+    margin-bottom: 14px;
+  }
+  .sub-step:last-child { margin-bottom: 0; }
+  .sub-step h4 {
+    font-size: 15px;
+    color: var(--primary);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-step h4 .num {
+    background: var(--primary);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .sub-step p, .sub-step ul { font-size: 14px; color: var(--text-light); }
+  .sub-step ul { padding-left: 20px; margin-top: 4px; }
+  .sub-step li { margin: 3px 0; }
+
+  .highlight {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .highlight.blue { background: #e3f2fd; border-color: #90caf9; }
+  .highlight.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .highlight.red { background: #ffebee; border-color: #ef9a9a; }
+  .highlight strong { color: var(--accent); }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary);
+    padding: 10px 0;
+    border-bottom: 2px solid var(--primary);
+    margin: 20px 0 16px;
+  }
+
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .price-table th {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .price-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-table tr:nth-child(even) td { background: #f8f9fa; }
+  .price-table .price { font-weight: 700; color: var(--accent); }
+
+  /* Education cards */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .edu-card {
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+  }
+  .edu-card:hover { transform: translateY(-3px); }
+  .edu-card-header {
+    padding: 18px 20px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .edu-card-header .icon { font-size: 24px; }
+  .edu-card-body { padding: 18px 20px; }
+  .edu-card-body p { font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
+  .edu-card-body ul { font-size: 14px; color: var(--text-light); padding-left: 18px; }
+  .edu-card-body li { margin: 4px 0; }
+
+  .c1 .edu-card-header { background: linear-gradient(135deg, #1a73e8, #1565c0); }
+  .c2 .edu-card-header { background: linear-gradient(135deg, #0d47a1, #01579b); }
+  .c3 .edu-card-header { background: linear-gradient(135deg, #006064, #004d40); }
+  .c4 .edu-card-header { background: linear-gradient(135deg, #33691e, #1b5e20); }
+  .c5 .edu-card-header { background: linear-gradient(135deg, #e65100, #bf360c); }
+  .c6 .edu-card-header { background: linear-gradient(135deg, #4a148c, #311b92); }
+
+  /* Phone section */
+  .phone-scenario {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .phone-scenario-header {
+    padding: 18px 24px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .phone-scenario-body { padding: 20px 24px; }
+
+  .ps1 .phone-scenario-header { background: linear-gradient(135deg, #1a73e8, #1565c0); }
+  .ps2 .phone-scenario-header { background: linear-gradient(135deg, #0d47a1, #01579b); }
+  .ps3 .phone-scenario-header { background: linear-gradient(135deg, #006064, #004d40); }
+  .ps4 .phone-scenario-header { background: linear-gradient(135deg, #e65100, #bf360c); }
+  .ps5 .phone-scenario-header { background: linear-gradient(135deg, #4a148c, #311b92); }
+
+  .script-block {
+    background: #f5f7fa;
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .script-block .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .script-block p { color: #555; }
+
+  .script-block.customer {
+    border-left-color: #ff9800;
+    background: #fff8f0;
+  }
+  .script-block.customer .label { color: #e65100; }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <a href="../index.html" class="back-link">← マニュアル一覧へ戻る</a>
+  <div class="badge">整体部門 AILE SHIGA</div>
+  <h1>整体部門マニュアル</h1>
+  <p>新規フロー・教育ツール・電話対応の総合ガイド</p>
+</div>
+
+<!-- Main Tabs -->
+<div class="main-tabs">
+  <div class="main-tab active" onclick="switchTab('shinki')">
+    <span class="tab-icon">📋</span>
+    新規フロー
+  </div>
+  <div class="main-tab" onclick="switchTab('kyouiku')">
+    <span class="tab-icon">📚</span>
+    教育ツール
+  </div>
+  <div class="main-tab" onclick="switchTab('denwa')">
+    <span class="tab-icon">📞</span>
+    電話対応
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 1: 新規フロー -->
+<!-- ============================================ -->
+<div class="tab-content active" id="tab-shinki">
+
+  <nav class="step-nav">
+    <a href="#" onclick="scrollToEl('shinki-overview')">全体フロー</a>
+    <a href="#" onclick="scrollToEl('shinki-step1')">STEP1 受付・問診票</a>
+    <a href="#" onclick="scrollToEl('shinki-step2')">STEP2 カウンセリング</a>
+    <a href="#" onclick="scrollToEl('shinki-step3')">STEP3 ビフォー撮影</a>
+    <a href="#" onclick="scrollToEl('shinki-step4')">STEP4 施術</a>
+    <a href="#" onclick="scrollToEl('shinki-step5')">STEP5 会計・次回予約</a>
+  </nav>
+
+  <div class="container">
+
+    <section class="overview" id="shinki-overview">
+      <h2>新規患者様 対応フロー概要</h2>
+      <div class="flow-diagram">
+        <div class="flow-step">STEP1<br>受付・問診票</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">STEP2<br>カウンセリング</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">STEP3<br>ビフォー撮影</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">STEP4<br>施術</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">STEP5<br>会計・次回予約</div>
+      </div>
+      <div class="highlight blue">
+        <strong>ポイント：</strong>各STEPの使用ページを確認しながら、スムーズに新規対応を進めましょう。
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="step-section s1" id="shinki-step1">
+      <div class="step-header">
+        <div class="step-num">01</div>
+        <div class="step-info">
+          <h3>受付・問診票記入</h3>
+          <p>ページ 1 → 2 → 3 → 4 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">ページ1 ｜ 受付対応</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> お出迎え・ご挨拶</h4>
+          <p>来院された患者様をお出迎えし、丁寧にご挨拶します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 問診票のお渡し</h4>
+          <p>問診票2枚をお渡しし、記入をお願いします。</p>
+          <ul>
+            <li>記入内容の説明を添える</li>
+            <li>不明点があればお気軽にお声がけくださいとお伝えする</li>
+          </ul>
+        </div>
+        <div class="section-title">ページ2 ｜ 問診票確認</div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 記入内容の確認</h4>
+          <p>問診票の記入が完了したら内容を確認します（約30秒）。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 来院動機の確認</h4>
+          <p>どのような症状でお悩みか確認します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 症状の詳細ヒアリング</h4>
+          <p>症状の部位や期間について詳しく伺います。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">6</span> 生活習慣の確認</h4>
+          <p>日常の生活習慣（姿勢、運動、睡眠等）を確認します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">7</span> 過去の治療歴</h4>
+          <p>過去に受けた治療や通院歴を確認します。</p>
+          <ul>
+            <li>他院での施術経験</li>
+            <li>治療の効果や経過</li>
+            <li>現在服用中の薬の有無</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">8</span> アレルギー・既往歴</h4>
+          <p>アレルギーや既往歴の有無を確認します。</p>
+        </div>
+        <div class="section-title">ページ3 ｜ 追加ヒアリング</div>
+        <div class="sub-step">
+          <h4><span class="num">9</span> 痛みの程度確認</h4>
+          <p>現在の痛みやつらさの程度を10段階で確認します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">10</span> 希望・ゴールの確認</h4>
+          <p>施術後にどうなりたいか、目標を確認します。</p>
+        </div>
+        <div class="section-title">ページ4 ｜ 検査案内</div>
+        <div class="sub-step">
+          <h4><span class="num">11</span> 検査の説明</h4>
+          <p>これから行う検査の内容と目的を説明します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">12</span> 姿勢分析</h4>
+          <p>立位・座位での姿勢を確認し、歪みをチェックします。</p>
+          <ul>
+            <li>正面・側面から確認</li>
+            <li>左右差のチェック</li>
+            <li>骨盤の傾きを確認</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">13</span> 可動域チェック</h4>
+          <p>各関節の可動域を確認します。</p>
+          <ul>
+            <li>首の可動域</li>
+            <li>肩周りの可動域</li>
+            <li>腰の可動域</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section s2" id="shinki-step2">
+      <div class="step-header">
+        <div class="step-num">02</div>
+        <div class="step-info">
+          <h3>カウンセリング</h3>
+          <p>ページ 5 → 6, 7 → ページ 21〜26 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">ページ5 ｜ 状態説明</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 検査結果の共有</h4>
+          <p>検査で分かった身体の状態を分かりやすくお伝えします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 原因の説明</h4>
+          <p>症状の原因について、図やモデルを使って説明します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 施術方針の提案</h4>
+          <p>今後の施術方針について提案します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 通院頻度の目安</h4>
+          <p>改善に必要な通院頻度と期間をお伝えします。</p>
+          <ul>
+            <li>症状に応じた通院スケジュール</li>
+            <li>改善の目安期間</li>
+            <li>自宅でのケア方法</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 施術メニューの紹介</h4>
+          <p>利用可能な施術メニューを説明します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">6</span> 施術時間の説明</h4>
+          <p>1回の施術時間は約5〜10分です。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">7</span> 効果の説明</h4>
+          <p>施術で期待できる効果について説明します。</p>
+        </div>
+        <div class="section-title">ページ6・7 ｜ 詳細カウンセリング</div>
+        <div class="sub-step">
+          <h4><span class="num">8</span> 質問への対応</h4>
+          <p>患者様からのご質問に丁寧に回答します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">9</span> 3回セットの提案</h4>
+          <p>まずは3回の施術で変化を実感していただくプランを提案します。</p>
+        </div>
+        <div class="section-title">ページ8 ｜ 補足説明</div>
+        <div class="sub-step">
+          <h4><span class="num">10</span> 身体の仕組みと改善プロセス</h4>
+          <p>なぜ症状が出ているか、施術を重ねることでどう改善するかを説明します。</p>
+          <ul>
+            <li>段階的な改善イメージ</li>
+            <li>好転反応について</li>
+            <li>個人差がある旨のご案内</li>
+          </ul>
+        </div>
+        <div class="section-title">ページ21〜26 ｜ 参考資料</div>
+        <div class="highlight">
+          <strong>参考ページ：</strong>ページ21〜26には、施術に関する詳細な参考資料、Googleレビューのご案内、症例写真などを掲載しています。
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section s3" id="shinki-step3">
+      <div class="step-header">
+        <div class="step-num">03</div>
+        <div class="step-info">
+          <h3>ビフォー・アフター撮影</h3>
+          <p>施術前後の変化を記録</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">Before 撮影</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 撮影の説明と同意</h4>
+          <p>ビフォーアフター撮影の目的を説明し、同意を得ます。</p>
+          <ul>
+            <li>変化を客観的に確認するため</li>
+            <li>今後の施術計画の参考にするため</li>
+            <li>プライバシーに配慮する旨を説明</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> Before 写真撮影</h4>
+          <p>施術前の状態を正面・側面・背面から撮影します。</p>
+        </div>
+        <div class="section-title">After 撮影</div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> After 写真撮影</h4>
+          <p>施術後に同じ角度・条件で撮影します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> ビフォーアフター比較</h4>
+          <p>Before / After を並べて変化をご確認いただきます。</p>
+        </div>
+        <div class="section-title">変化の共有</div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 感想のヒアリング</h4>
+          <p>施術を受けた感想や身体の変化を伺います。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">6</span> 今後の改善イメージ</h4>
+          <p>継続することでさらにどう変化するかをお伝えします。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section s4" id="shinki-step4">
+      <div class="step-header">
+        <div class="step-num">04</div>
+        <div class="step-info">
+          <h3>施術</h3>
+          <p>ページ 9 → 10 → 11 → 12 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">施術準備</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 施術内容の再確認</h4>
+          <p>本日行う施術内容を改めてお伝えします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 施術ベッドへご案内</h4>
+          <p>施術室にご案内し、体勢を整えます。</p>
+        </div>
+        <div class="section-title">パターン別施術フロー</div>
+        <div class="highlight blue">
+          <strong>パターンA：</strong>骨盤矯正を中心とした施術（骨盤の歪み・背骨のバランス・筋肉の緊張緩和）
+        </div>
+        <div class="highlight blue">
+          <strong>パターンB：</strong>上半身を中心とした施術（肩甲骨・首肩の可動域改善・猫背矯正）
+        </div>
+        <div class="highlight blue">
+          <strong>パターンC：</strong>全身調整（骨盤〜背骨の全体矯正・筋膜リリース・セルフケア指導）
+        </div>
+        <div class="section-title">ページ9〜10 ｜ 施術実施</div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 施術中の確認</h4>
+          <p>随時痛みの確認、変化の説明を行います。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 術後の状態チェック</h4>
+          <p>施術後の状態を再検査します（8〜12分目安）。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 施術後の注意点</h4>
+          <p>水分を多めに摂る、激しい運動は避ける、十分な睡眠をとる等をお伝えします。</p>
+        </div>
+        <div class="section-title">ページ11 ｜ アフターケア</div>
+        <div class="sub-step">
+          <h4><span class="num">6</span> 自宅ケアの指導</h4>
+          <p>自宅でできるストレッチやケア方法をお伝えします（3〜7分）。</p>
+        </div>
+        <div class="section-title">ページ12 ｜ 5回目の施術</div>
+        <div class="sub-step">
+          <h4><span class="num">7</span> 経過確認・プラン調整</h4>
+          <p>5回目の施術時に中間評価を行い、以降のプランを調整します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section s5" id="shinki-step5">
+      <div class="step-header">
+        <div class="step-num">05</div>
+        <div class="step-info">
+          <h3>会計・次回予約</h3>
+          <p>ページ 13 → 14 → 15〜18 → 19 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">ページ13 ｜ 回数券のご案内</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 回数券プランの説明</h4>
+          <p>3回セットを基準として、回数券プランをご提案します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 改善の目標設定</h4>
+          <p>患者様と一緒に改善の目標を設定します。</p>
+        </div>
+        <div class="section-title">ページ14 ｜ 料金説明</div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 料金体系の説明</h4>
+          <p>各プランの料金を明確にお伝えします。</p>
+        </div>
+        <table class="price-table">
+          <thead>
+            <tr><th>プラン</th><th>総額</th><th>1回あたり</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>初回体験</td><td class="price">¥1,500</td><td>-</td></tr>
+            <tr><td>2回目</td><td class="price">¥800</td><td>-</td></tr>
+            <tr><td>10回プラン</td><td class="price">¥66,000</td><td class="price">¥6,600</td></tr>
+            <tr><td>20回プラン</td><td class="price">¥110,000</td><td class="price">¥5,500</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight green">
+          <strong>参考：</strong>通常料金 ― 10回 ¥80,000 / 20回 ¥150,000。回数券ご購入で大幅にお得になります。
+        </div>
+        <div class="section-title">ページ18 ｜ 契約手続き</div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 内容確認・お支払い</h4>
+          <p>最終確認を行い、お申し込み手続きに進みます。次回お支払い予定額（例：2回目 ¥4,600）。</p>
+        </div>
+        <div class="section-title">LINE QRコード登録</div>
+        <div class="highlight">
+          <strong>LINE登録のご案内：</strong>LINE QRコードをご案内し、友だち追加していただきます。予約やお知らせをLINEで受け取れます。
+        </div>
+        <div class="section-title">ページ19 ｜ 次回予約・お見送り</div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 次回予約の確定</h4>
+          <p>次回のご予約を確定します。</p>
+          <ul>
+            <li>20分以内にLINEで予約確定</li>
+            <li>次回来院日を20日以内に設定</li>
+            <li>2回目以降は1週間以内が理想</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">6</span> お見送り</h4>
+          <p>次回のご来院をお待ちしている旨をお伝えし、丁寧にお見送りします。</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 2: 教育ツール -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-kyouiku">
+  <div style="width:100%; max-height:calc(100vh - 67px); overflow-y:auto;">
+    <style>
+      .km-wrap {
+        font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+        background: #f8f9fc;
+        color: #333;
+        line-height: 1.8;
+        padding: 0;
+        --primary: #1a1a2e;
+        --accent: #1a73e8;
+        --accent-light: #e3f2fd;
+        --bg: #f8f9fc;
+        --card-bg: #ffffff;
+        --border: #e0e0e0;
+        --text: #333;
+        --text-light: #666;
+        --step-bg: #f1f5f9;
+        --tip-bg: #fffbe6;
+        --warn-bg: #fff0f0;
+        --note-bg: #e8f4fd;
+      }
+      .km-wrap .header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .km-wrap .header h1 { font-size: 1.6rem; letter-spacing: 0.1em; margin-bottom: 8px; }
+      .km-wrap .header .subtitle { font-size: 0.85rem; color: #90caf9; letter-spacing: 0.05em; }
+      .km-wrap .header .meta { margin-top: 16px; font-size: 0.75rem; color: #aaa; }
+      .km-wrap .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+      .km-wrap .step { margin-top: 48px; margin-bottom: 24px; }
+      .km-wrap .step-header {
+        display: flex; align-items: center; gap: 12px;
+        padding: 16px 20px; background: var(--primary); color: #fff;
+        border-radius: 8px; font-size: 1.1rem; font-weight: bold; letter-spacing: 0.05em;
+      }
+      .km-wrap .step-number {
+        background: var(--accent); color: #fff;
+        width: 36px; height: 36px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; flex-shrink: 0;
+      }
+      .km-wrap .two-col {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;
+      }
+      @media (max-width: 700px) { .km-wrap .two-col { grid-template-columns: 1fr; } }
+      .km-wrap .col-tool, .km-wrap .col-script {
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 8px; padding: 20px;
+      }
+      .km-wrap .col-tool { border-top: 3px solid var(--accent); }
+      .km-wrap .col-script { border-top: 3px solid #5b8c6e; }
+      .km-wrap .col-label {
+        font-size: 0.75rem; font-weight: bold; text-transform: uppercase;
+        letter-spacing: 0.1em; margin-bottom: 12px; color: var(--text-light);
+      }
+      .km-wrap .col-tool .col-label { color: var(--accent); }
+      .km-wrap .col-tool .tool-img { width: 100%; border-radius: 6px; margin-top: 10px; border: 1px solid var(--border); }
+      .km-wrap .col-script .col-label { color: #5b8c6e; }
+      .km-wrap .page-tag {
+        display: inline-block; background: var(--accent-light); color: var(--accent);
+        font-size: 0.75rem; font-weight: bold; padding: 2px 10px;
+        border-radius: 12px; margin-bottom: 8px;
+      }
+      .km-wrap .card {
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 8px; padding: 20px; margin-bottom: 20px;
+      }
+      .km-wrap .card h3 { font-size: 1rem; margin-bottom: 12px; color: var(--primary); }
+      .km-wrap .serif {
+        background: #f0f4ff; border-left: 4px solid var(--accent);
+        padding: 14px 16px; margin: 10px 0; border-radius: 0 6px 6px 0; font-size: 0.95rem;
+      }
+      .km-wrap .serif::before {
+        content: "💬 セリフ"; display: block; font-size: 0.7rem;
+        font-weight: bold; color: var(--accent); margin-bottom: 6px;
+      }
+      .km-wrap .tip {
+        background: var(--tip-bg); border-left: 4px solid #d4a017;
+        padding: 10px 14px; margin: 10px 0; border-radius: 0 6px 6px 0; font-size: 0.85rem;
+      }
+      .km-wrap .tip::before {
+        content: "💡 ポイント"; display: block; font-size: 0.7rem;
+        font-weight: bold; color: #b8860b; margin-bottom: 4px;
+      }
+      .km-wrap .warn {
+        background: var(--warn-bg); border-left: 4px solid #d44;
+        padding: 10px 14px; margin: 10px 0; border-radius: 0 6px 6px 0; font-size: 0.85rem;
+      }
+      .km-wrap .warn::before {
+        content: "⚠ 注意"; display: block; font-size: 0.7rem;
+        font-weight: bold; color: #d44; margin-bottom: 4px;
+      }
+      .km-wrap .note {
+        background: var(--note-bg); border-left: 4px solid #3a7bd5;
+        padding: 10px 14px; margin: 10px 0; border-radius: 0 6px 6px 0; font-size: 0.85rem;
+      }
+      .km-wrap .note::before {
+        content: "📌 メモ"; display: block; font-size: 0.7rem;
+        font-weight: bold; color: #3a7bd5; margin-bottom: 4px;
+      }
+      .km-wrap table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+      .km-wrap th, .km-wrap td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+      .km-wrap th { background: var(--step-bg); font-weight: bold; font-size: 0.8rem; }
+      .km-wrap .footer {
+        text-align: center; padding: 32px 20px; font-size: 0.75rem;
+        color: var(--text-light); border-top: 1px solid var(--border); margin-top: 60px;
+      }
+      @media print {
+        .km-wrap { background: #fff; }
+        .km-wrap .step { break-before: page; }
+        .km-wrap .two-col, .km-wrap .card { break-inside: avoid; }
+      }
+    </style>
+
+    <div class="km-wrap">
+      <div class="header">
+        <h1>🦴 整体 AILE SHIGA ｜ 施術ガイド</h1>
+        <div class="subtitle">スライドツール × 問診スクリプト｜対照ガイド</div>
+        <div class="meta">
+          各STEPで開くツール／スライドと、話す内容を左右で対比したガイドです<br>
+          対象：整体事業部スタッフ ／ 作成：2026年4月
+        </div>
+      </div>
+
+      <div class="container">
+
+<!-- ==================== STEP 1 ==================== -->
+<div class="step" id="edu-step1">
+  <div class="step-header">
+    <div class="step-number">1</div>
+    出迎え・検査・コンセプト説明
+  </div>
+</div>
+
+<div class="tip">挨拶 → インボディ → 姿勢写真 → スライド1 コンセプト → スライド2 流れ → スライド3 確認 → スライド4 前置き</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <p>ツールなし（まだ開かない）</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>1. お出迎え・担当名乗り</h3>
+    <div class="serif">「はじめまして。本日担当する〇〇です。よろしくお願いします。」</div>
+
+    <h3>2. 2つの検査を案内する</h3>
+    <div class="serif">「まず2つ検査をしていきます。<br>１つ目は体の内側の検査です。インボディという機械を使って測定します。<br>２つ目は体の外側の検査です。姿勢を写真で撮っていきます。」</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">🔧 インボディ（体組成計）</span>
+    <p>裸足で乗り・持ち手を握る</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>3. インボディ測定（内側の検査）</h3>
+    <div class="serif">「まずこちらの機械に裸足で乗っていただいて、持ち手を握ってください。30秒ほどで筋肉量・脂肪量・体重が分かります。」</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <p>ツールなし</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>4. ベッドへ案内・お荷物預かり</h3>
+    <div class="serif">「では、ベッドにご案内します。お荷物はこちらにお預かりしますね。下に置いておきます。」</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📸 カメラ</span>
+    <p>姿勢写真 — 正面・横から各1枚撮影</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>5. 姿勢写真撮影（外側の検査）</h3>
+    <div class="serif">「では、姿勢の写真を（いろんな姿勢の写真と動きの写真を）何枚か撮っていきますので、いつも通りの自然な姿勢でいてください」</div>
+    <div class="note">この間にタイプを観察する（分析型／計画型／創造型／共感型）</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 1</span>
+    <img src="images/seitai_tool_1.png" alt="スライド1" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>6〜8. コンセプトの説明（写真撮影後・着席して）</h3>
+    <div class="note">スライド1をそのまま読むだけでOK。セリフの暗記は不要です。</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 2</span>
+    <p>本日の流れについて</p>
+    <img src="images/seitai_tool_2.png" alt="スライド2" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>9. 本日の流れ説明</h3>
+    <div class="note">スライド2をそのまま読むだけでOK。セリフの暗記は不要です。</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 3</span>
+    <p>確認事項</p>
+    <img src="images/seitai_tool_3.png" alt="スライド3" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>10. 確認事項</h3>
+    <div class="serif">「最初に何か伝えておかないといけないことはありますか？」</div>
+    <div class="note">スライドを見せながら一覧を確認。各項目を読み上げるのではなく「何かありますか？」と一言で拾う。</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 4</span>
+    <img src="images/seitai_tool_4.png" alt="スライド4" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>11〜13. 問診に入る前の前置き</h3>
+    <div class="note">スライド4をそのまま読むだけでOK。セリフの暗記は不要です。</div>
+    <div class="tip">スライド4でビジュアルを見せながら話すことで「なぜ問診が必要か」が患者さんに伝わりやすくなる。</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 2 ==================== -->
+<div class="step" id="edu-step2">
+  <div class="step-header">
+    <div class="step-number">2</div>
+    問診・主訴ヒアリング → 検査結果の説明
+  </div>
+</div>
+
+<div class="tip">スライド5 問診 → 感情深掘り → 姿勢写真分析 → スライド6,7 原因説明 → インボディ結果 → スライド21-26 来院経路確認</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 5</span>
+    <p>問診票を見ながら</p>
+    <img src="images/seitai_tool_5.png" alt="スライド5" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>1〜7. 主訴の確認・感情の深掘り</h3>
+    <div class="serif">「今日一番気になっているのはどこですか？」</div>
+    <div class="serif">「その悩みがあることで、何が嫌ですか？」</div>
+    <div class="serif">「それはいつ頃からですか？」</div>
+    <div class="serif">「その間にどこか行ったり、自分で何かやったことはありますか？」</div>
+    <div class="note">整体などに行った経験がある場合は「そこに行って実際どう変わったのか」「なぜ続かなかったのか」などを確認する</div>
+    <div class="serif">「実際になぜ今日来ようと思ったのですか？」</div>
+    <div class="serif">「このまま5年、10年経った時に、どうなっているのが嫌ですか？」</div>
+    <div class="note">※「嫌な未来」を言葉にしてもらう</div>
+    <div class="serif">「逆に、どうなっていれば嬉しいですか？」</div>
+    <div class="note">※「理想の未来」を引き出す</div>
+    <div class="tip">「姿勢が悪い」より「姿勢が悪いと思われたくない」「周りの目が気になる」という感情の方が刺さる。感情まで引き出せたら成功。</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📷 姿勢写真を使用</span>
+    <p>撮影した姿勢写真を指差しながら</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>9. 姿勢カルテの分析・原因説明</h3>
+    <div class="serif">「では検査の結果をお伝えしますね。まず姿勢の写真を見てみましょう。」</div>
+
+    <h3>▶ 重心の説明</h3>
+    <div class="serif">「まず、黄色の線とオレンジの点が〇〇さんの重心です。本来は青色の線に重なっているのが理想的です」</div>
+    <div class="serif">「実際にご覧になってみて、どうですか？」</div>
+    <div class="note">ここで患者さん本人に答えてもらう。まずは本人の言葉で気づきを引き出す。</div>
+
+    <h3>▶ 施術者目線からの指摘</h3>
+    <p>患者さんが気になっているところの説明をしたうえで、プロの視点から以下を指摘する：</p>
+
+    <p style="font-weight:bold; margin-top:12px;">（a）正面からの写真</p>
+    <ul style="margin:4px 0 12px 20px; font-size:0.9rem;">
+      <li>肩の高さの左右差</li>
+      <li>骨盤の傾き・姿勢のゆがみ</li>
+      <li>背骨と肩の位置関係のズレ</li>
+    </ul>
+
+    <p style="font-weight:bold;">（b）横からの写真</p>
+    <ul style="margin:4px 0 12px 20px; font-size:0.9rem;">
+      <li>反り腰</li>
+      <li>猫背・巻き肩</li>
+      <li>ストレートネック（首の前傾）</li>
+    </ul>
+
+    <p style="font-weight:bold;">（c）座った状態の横からの写真</p>
+    <ul style="margin:4px 0 12px 20px; font-size:0.9rem;">
+      <li>ストレートネックの指摘</li>
+    </ul>
+
+    <h3>▶ 動作写真（3枚）の解説</h3>
+    <p>前屈・後屈・首の後屈の3つの動作写真を見せながら、理想の可動域と比較して説明する。</p>
+    <div class="serif">「〇〇さんの角度はこれだけです」と、正常可動域まで動いていないことを伝える。</div>
+    <table>
+      <thead><tr><th>動作</th><th>理想の可動域</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>腰の前屈</td><td><strong>90度</strong></td><td>90度以上動いていればOK</td></tr>
+        <tr><td>腰の後屈</td><td><strong>60度以上</strong></td><td>60度以上動いていればOK</td></tr>
+        <tr><td>首の後屈</td><td><strong>90度以上</strong></td><td>90度以上動いていればOK</td></tr>
+      </tbody>
+    </table>
+
+    <h3>▶ 締めくくり</h3>
+    <div class="serif">「すべての原因はその姿勢にあるから、可動域も悪くなっているんですよ」</div>
+    <div class="warn">この一言で「姿勢 → 可動域低下 → 症状」の因果関係を患者さんに印象づける。必ず最後に伝える。</div>
+  </div>
+</div>
+
+<!-- インボディ結果（姿勢カルテの直後） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📊 インボディ測定結果</span>
+    <p>体重・筋肉量・脂肪量を見せる</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>14〜15. インボディ結果の解説</h3>
+    <div class="serif">「次に内側の結果です。まずこの中で見ていくのは体重、筋肉量、体脂肪量の部分です。」</div>
+
+    <p style="font-weight:bold; margin-top:14px;">▼ 結果に応じた説明パターン：</p>
+
+    <p style="font-weight:bold; margin-top:12px;">パターン①：全項目が低い場合</p>
+    <div class="serif">「まず筋肉量を伸ばしていくことが大事です。」</div>
+
+    <p style="font-weight:bold; margin-top:12px;">パターン②：全項目が高い場合</p>
+    <div class="serif">「体の重りがあるので、人一倍疲れやすいです。」</div>
+
+    <p style="font-weight:bold; margin-top:12px;">パターン③：体重に対して筋肉量が少ない場合（最も多い）</p>
+    <div class="serif">「支えられる力よりもかかっている負担の方が大きいため、人一倍疲れやすいんですよ。」</div>
+
+    <p style="font-weight:bold; margin-top:14px;">▼ タンパク質の説明へ：</p>
+    <div class="serif">「タンパク質が不足していると筋肉がつきにくいんです。ここは伸びしろがあるということなので、ケアと合わせて一緒に改善していきましょう！」</div>
+    <div class="note">ネガティブな数値は「伸びしろ」として前向きに伝える</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 3 体感検査（インボディの直後） ==================== -->
+<div class="step" id="edu-step3">
+  <div class="step-header">
+    <div class="step-number">3</div>
+    体感検査（骨盤ベルト）― 最重要パート
+  </div>
+</div>
+
+<div class="warn">Before → After → Before の順で進める。患者さん自身が変化を体感することがリピートの鍵。</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">🩺 骨盤ベルト</span>
+    <p>正しい位置に固定して体感させる</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>1. 検査前の説明</h3>
+    <div class="serif">「〇〇さんのお体の悩みは、骨盤から来ている可能性が高いです。ですので、実際に骨盤を正してあげると体がどういう風に変わるか、今からチェックしていきますね。」</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Before（ビフォー）の確認 💬</h3>
+  <p>（猫背の方・首・肩こりの方）姿勢のチェックと首・肩の可動域の検査を行い、今の状態を確認する。</p>
+  <div class="note">可動域・姿勢・痛みの出方など、患者さん自身に感じてもらいながら確認する</div>
+  <div class="serif">「今の状態を覚えておいてくださいね。」</div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">🩺 骨盤ベルト装着</span>
+    <p>ビフォーと同じ項目を再確認</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>4. After（アフター）の検査</h3>
+    <div class="serif">「このベルトを使って体に変化が出た場合、〇〇さんの症状は骨盤に原因があるということが分かります。」</div>
+    <div class="note">患者さんの反応を待って共感する。先ほどのビフォーと同じ項目（姿勢・可動域・痛みなど）を再確認する。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>矯正方針の提示 → ベルトを外す</h3>
+  <div class="serif">（体に変化が出ていた場合）「〇〇さんの場合はやはり骨盤から（症状が）来ていると言えるので、今日は骨盤を含めた全身の矯正をしっかり入れていきますね。」</div>
+  <div class="note">→ ここでベルトを外す</div>
+</div>
+
+<div class="card">
+  <h3>再度 Before（ビフォー）の確認 💬</h3>
+  <p>ベルトを外した後、もう一度同じように検査を行う。骨盤を支えていたベルトがないことで、体が元の状態に戻っていることを患者さんと一緒に確認する。</p>
+  <div class="serif">「ベルトを外すと元に戻るのが分かりますよね。だからこそ矯正でこの状態を身体に覚えさせていく必要があるんです。」</div>
+  <div class="tip">「体感」で納得させる最重要パート。患者さんが「楽！」「違う！」と言ったらここは成功。Before→After→Beforeの流れで「ベルトなしでは元に戻る」ことも体感させることが大切。この体験があるとSTEP5の料金提示がスムーズになる。</div>
+</div>
+
+<!-- ==================== STEP 4 治療・施術 ==================== -->
+<div class="step" id="edu-step4">
+  <div class="step-header">
+    <div class="step-number">4</div>
+    治療・施術 → 治療方針の説明
+  </div>
+</div>
+
+<div class="tip">施術で「変わった！」を体験してもらった後、ツールを使って治療方針を視覚で伝えることで「なぜ続けるか」が腑に落ちる。</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <p>ツールなし（施術しながら会話）</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>1. 施術体験</h3>
+    <div class="serif">「では施術を体験してもらいます。ベッドにうつ伏せになってください。まず筋肉を緩めてから骨格を矯正していきます。力を抜いてリラックスしてください。」</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>治療中の会話（勤務時間・通院タイミングの確認）💬</h3>
+  <div class="serif">A. 仕事中の姿勢と負担の確認<br>「仕事中にしんどさが出ますよね」「姿勢が崩れたり肩こりが出たりするのは、実際には何時間くらいその姿勢でいることが多いんですか？」</div>
+  <div class="serif">B. 勤務時間の確認<br>「そもそもお仕事は何時から始まるんですか？」「何時から何時までお仕事をされているんですか？」</div>
+  <div class="serif">C. 通院タイミングの打診<br>「お休みは土日なんですか？」「今日は仕事終わりに来てくださったんですか？ それとも、今日はお休みだから来ていただけたんですか？」</div>
+  <div class="note">体の症状と仕事の状況を関連付けて自然に聞き出す。今後その方が通いやすそうな時間帯を探っておく。</div>
+</div>
+
+<!-- 筋肉マッサージ中の圧痛の確認 -->
+<div class="card">
+  <h3>筋肉マッサージ中の圧痛の確認 💬</h3>
+  <p>マッサージ中に押している強さを確認する。「痛気持ちいい」「痛い」などと言っている方には、以下のように伝える：</p>
+
+  <div class="serif">「今僕が押している強さは、マックス10で押せるとしたら『2』ぐらいです。」</div>
+  <div class="serif">「本当は7、8割ぐらいの強さで押して、何も感じない、あるいは『痛くて気持ちいい』ぐらいの状態が理想です。」</div>
+  <div class="serif">「これは筋肉が硬ければ硬いほど『痛い』と感じます。逆に、これから体が良くなって筋肉が柔らかくなっていけば、同じ強さでも痛いとは感じなくなります。」</div>
+</div>
+
+<!-- 矯正前の声かけ -->
+<div class="card">
+  <h3>矯正前の声かけ 💬</h3>
+  <div class="serif">「音が出ることがありますが、痛くないので安心してください。」</div>
+</div>
+
+<!-- 矯正前のビフォーの確認（4項目） -->
+<div class="card">
+  <h3>矯正前のビフォーの確認 🔍</h3>
+  <p>矯正に入る前に、以下の4つの検査を行い、患者さんと一緒に現状を確認する。</p>
+
+  <h3 style="margin-top:16px;">① 骨盤の開き</h3>
+  <p>骨盤の表面にある出っ張り（下前腸骨棘）に両手の小指球を当てて、左右の親指同士の間隔（隙間）を確認する。</p>
+  <div class="serif">「ここの隙間を確認しますね。理想は指0本から、第一関節同士が重なるぐらいの状態です。」</div>
+
+  <h3 style="margin-top:16px;">② 反り腰の検査</h3>
+  <p>仰向けの状態で矯正前に行う。</p>
+  <div class="serif">（a）治療師が腰の下に手を入れて、隙間を確認する。<br>（b）次に、患者さん自身にも腰の下に手を入れていただき、隙間を確認してもらう。</div>
+  <div class="serif">「腰の下に手が入らないのが理想です。」</div>
+  <p style="margin-top:8px; font-weight:bold;">反り腰の原因を伝える：</p>
+  <div class="serif">「反り腰の原因は2つあります。1つは骨盤の歪み、そしてもう1つの大きな原因はお腹の筋力不足です。」</div>
+  <div class="note">インボディの結果で「筋肉が少ない」「筋肉をつけていく必要がある」と伝えた方には →「これから筋トレをしていく場合は、まずこのお腹の筋力からつけていった方がいいです」と伝える。</div>
+
+  <h3 style="margin-top:16px;">③ 巻き肩の検査</h3>
+  <p>仰向けの状態で、ベッドと肩の間に隙間があることを確認する。実際に指を縦に入れてみて、何本分入るかを検査する。</p>
+  <div class="serif">「今、指が◯本入りますね。理想は0.5本から1本です。指が入れば入るほど巻き肩ということになります。」</div>
+
+  <h3 style="margin-top:16px;">④ ストレートネックの検査</h3>
+  <p>反り腰の検査と同様に、首の下に手を入れて隙間の確認をする。</p>
+  <div class="serif">「手のひら1枚分が入るか入らないかぐらいが理想です。」</div>
+</div>
+
+<!-- 矯正後のアフター確認（4項目） -->
+<div class="card">
+  <h3>矯正後のアフター確認 🔍</h3>
+  <p>矯正後、ビフォーと同様に以下の4つの検査を行い、変化を確認する。</p>
+
+  <h3 style="margin-top:16px;">① 骨盤の開き</h3>
+  <p>ビフォーと同じ方法で親指同士の間隔を再確認し、変化を伝える。</p>
+
+  <h3 style="margin-top:16px;">② 反り腰の検査</h3>
+  <p>仰向けで腰の下の隙間を再確認。患者さんにも手を入れてもらい、変化を体感してもらう。</p>
+
+  <h3 style="margin-top:16px;">③ 巻き肩の検査</h3>
+  <p>ベッドと肩の間に指を縦に入れ、本数の変化を確認する。</p>
+
+  <h3 style="margin-top:16px;">④ ストレートネックの検査</h3>
+  <p>首の下の隙間を再確認し、変化を伝える。</p>
+</div>
+
+<!-- ビフォーアフター写真撮影・比較 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📷 姿勢写真（ビフォー・アフター比較）</span>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>ビフォーアフター写真の確認</h3>
+    <p>再度同じように写真を撮影する。その後、ビフォーとアフターの比較写真を患者さんに見てもらう。</p>
+    <div class="serif">「では、もう一度写真を撮ってビフォーアフターの確認をしましょう。」</div>
+    <p style="margin-top:10px;">撮影後、比較写真を見せて：</p>
+    <div class="serif">「どこが変わったか分かりますか？」</div>
+    <div class="note">まず患者さん自身に気づきを答えてもらう。反応が薄い場合や分かりづらそうな場合は、治療師目線で「ここが変わりましたよ」と具体的に伝えてあげる。</div>
+  </div>
+</div>
+
+<!-- 原因説明への導入 → スライド9〜12 -->
+<div class="card">
+  <h3>原因説明への導入 💬</h3>
+  <div class="serif">「じゃあ実際に、その原因がなぜ起こるのかなどをお話ししていこうと思うのですが、大丈夫ですか？」</div>
+</div>
+
+<!-- 6. 悩みが出る原因（導入・ツールなし） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <p>ツールなし</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>6. 変化の確認と導入</h3>
+    <div class="serif">「さっき変化が出たのは分かっていただけましたか？ ただ、1回だけだとまた元に戻ってしまうんですよ。」</div>
+    <div class="serif">「なぜ戻ってしまうのか、これから説明してもいいですか？」</div>
+  </div>
+</div>
+
+<!-- 7. 歪みの原因（セリフ + スライド6） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 6</span>
+    <p>お悩みが出る本当の原因</p>
+    <img src="images/seitai_tool_6.png" alt="スライド6" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>7. 歪みが出る原因</h3>
+    <div class="serif">「歪みが出る原因は、立ったり座ったり寝たりといった日常的な生活動作の癖や、普段の姿勢にあります。足を組むなどの無意識な習慣が原因です。」</div>
+  </div>
+</div>
+
+<!-- 7続き. 当てはまるものは？（スライド7） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 7</span>
+    <p>お悩みが出る本当の原因（詳細）</p>
+    <img src="images/seitai_tool_7.png" alt="スライド7" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>当てはまるものの確認</h3>
+    <div class="serif">「当てはまるものはありますか？」</div>
+    <div class="note">患者さんに該当するものを答えてもらう。「そういえば…」という共感を引き出す。</div>
+  </div>
+</div>
+
+<!-- 8. 長期間の蓄積（セリフ + スライド8） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 8</span>
+    <p>お悩みが出る本当の理由</p>
+    <img src="images/seitai_tool_8.png" alt="スライド8" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>8. 長期間の蓄積</h3>
+    <div class="serif">「これらは意図せず、数年から十数年という長い時間をかけて蓄積された結果、今の『癖』として定着しています。」</div>
+  </div>
+</div>
+
+<!-- 9〜10. 再発リスクと定着までの目安（スライド9） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 9</span>
+    <p>定着とは？ご来院の回数</p>
+    <img src="images/seitai_tool_9.png" alt="スライド9" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>9. 再発リスク</h3>
+    <div class="serif">「特に骨の歪みの癖は非常に強いものです。早い人で8回、時間がかかる人で12回、平均して10回ぐらい。この期間は再発のリスクが非常に高い状態です。逆に、正しい位置に骨が定着すれば、再発のリスクは大幅に低くなります。」</div>
+
+    <h3>10. 定着までの目安</h3>
+    <div class="serif">「実際に今、良くなった状態を定着させることは十分可能です。〇〇さんの場合は筋肉の硬さなどもありますが、これからさらに柔らかく、状態を良くしていけるので、まだ伸びしろはあると思っておいてください。」</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 10</span>
+    <p>ご来院ペース</p>
+    <img src="images/seitai_tool_10.png" alt="スライド10" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>11. 通院ペースの重要性</h3>
+    <div class="serif">「歪みの癖に負けないよう、体と頭に正しい状態を覚え込ませるためには、通院ペースが重要です。理想は最初は3日から7日に1回です。」</div>
+    <div class="note">全員が必ずこのペースで来られるわけではないので、難しい場合は遠慮なく相談してくださいと伝える</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 11</span>
+    <p>セルフケア</p>
+    <img src="images/seitai_tool_11.png" alt="スライド11" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>12. セルフケアのアドバイス</h3>
+    <div class="serif">「院での施術と合わせて、セルフケアも非常に大切になってきます。まずは簡単な方法からお伝えするので、1つずつやっていきましょう。もし難しかったらまた言ってください。」</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 12</span>
+    <p>5ルール表</p>
+    <img src="images/seitai_tool_12.png" alt="スライド12" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>13. お悩みを改善するための5つのルール</h3>
+    <div class="serif">「今の悩みを改善するために『5つのルール』があります。これについてお伝えしますね。」</div>
+    <table>
+      <thead><tr><th></th><th>何のために</th><th>実行すること</th></tr></thead>
+      <tbody>
+        <tr><td>①</td><td>頑固な身体の歪み改善</td><td>当院の矯正を受ける</td></tr>
+        <tr><td>②</td><td>良い状態をキープ</td><td>毎日セルフケアを行う</td></tr>
+        <tr><td>③</td><td>良い状態定着</td><td>ペースを守る ※1</td></tr>
+        <tr><td>④</td><td>良い状態定着</td><td>回数をこなす ※2</td></tr>
+        <tr><td>⑤</td><td>再発防止</td><td>癖を止める</td></tr>
+      </tbody>
+    </table>
+    <div class="note">※1：3〜7日に1回 ／ ※2：検査法に準ずる最低10回以上</div>
+    <div class="serif">「この5つができると、まず今の悩みが改善するのは大前提で、そのお悩みを繰り返さないようにしたり、新しい悩みを生み出さないようにできると思っておいてください。」</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 5 ==================== -->
+<div class="step" id="edu-step5">
+  <div class="step-header">
+    <div class="step-number">5</div>
+    今後の流れと料金説明 → 次回予約
+  </div>
+</div>
+
+<div class="tip">ゴールまでの全体像をスライドで見せてから料金を提示する。「なぜこの金額か」が伝わると納得感が生まれる。最後は気持ちよく次回予約まで確定させる。</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 13</span>
+    <p>ステップ①②③</p>
+    <img src="images/seitai_tool_13.png" alt="スライド13" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>1〜2. 3ステップのロードマップ</h3>
+    <div class="serif">「治療は3ステップで考えています。<br><strong>ステップ① 改善期間（土台作り）：</strong>現在の悩みを改善するための期間です。通院回数の目安は早い人で8回、時間がかかる人で12回（平均10回程度）。まずは今の悩みを取り除き、体の土台を作ります。<br><strong>ステップ② 定着期間：</strong>改善した状態を体に定着させる期間です。通院回数の目安はおよそ10回。セルフケアをしっかりとお伝えします。ご自身で『自走』していける状態を作っていくのがこのステップの目的です。<br><strong>ステップ③ メンテナンス期間：</strong>ほとんどの方が月1回程度。自分では自覚しにくい歪みを検査したり、セルフケアで補いきれない部分を一緒にケアしたりします。」</div>
+    <div class="serif">「〇〇さんの場合はどこまで目指していきたいですか？」</div>
+    <div class="note">ステップ1〜3のどこを選んでも、一旦「いいですね」と肯定する</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <p>ツールなし（📅 予約を確定させる）</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>3〜5. 次回予約の確定</h3>
+    <div class="serif">「そのためには、最初はやはり土台作りが大事になってきます。理想は3日から7日に1回程度なのですが、〇〇さんの場合はどれぐらいであれば頑張れそうですか？」</div>
+    <div class="serif">（週1回ペースで来られそうな方）「今日は◯日なので、1週間後の◯日ぐらいまでに来られるのがベストなのですが、ご都合はいかがですか？」</div>
+    <div class="serif">「では次回の施術日は◯日にしましょう。詳しい時間は、最後に受付で決めていきますね。」</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 14</span>
+    <p>治療の料金表</p>
+    <img src="images/seitai_tool_14.png" alt="スライド14" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>6. 料金説明</h3>
+    <div class="serif">「次に、必ずかかる料金が2つあります。<br><strong>1つ目は管理費（材料費）です。</strong>今日は体験なので、管理費は不要です。初回は1,500円、それ以降は毎回800円かかります。お支払い方法は現金のみとなります。<br><strong>2つ目は治療費です。</strong>通常は1回8,250円ですが、回数券にまとめたコースがあります。」</div>
+    <table>
+      <thead><tr><th>種類</th><th>通常価格</th><th>1回単価</th></tr></thead>
+      <tbody>
+        <tr><td>10回券</td><td><strong>¥80,000</strong></td><td>¥8,000</td></tr>
+        <tr><td>20回券</td><td><strong>¥150,000</strong></td><td>¥7,500</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 15 → 16 → 17</span>
+    <p>限定価格 → オーバーレイ → モニター価格</p>
+    <img src="images/seitai_tool_15.png" alt="スライド15" class="tool-img">
+    <img src="images/seitai_tool_16.png" alt="スライド16" class="tool-img" style="margin-top:8px;">
+    <img src="images/seitai_tool_17.png" alt="スライド17" class="tool-img" style="margin-top:8px;">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>7. 初回限定モニターコースの説明</h3>
+    <div class="serif">「通常はこの価格ですが、初回限定の『モニターコース』も用意しています。治療内容はすべて同じですが、以下の項目にご協力いただける方が対象となります。<br>①ビフォーアフターの写真撮影と使用への協力 — 変化の出た箇所を写真として使わせていただきます。顔を隠してほしいなどのご要望があれば、柔軟に対応いたします。<br>②口コミなどの感想の提出」</div>
+    <table>
+      <thead><tr><th>種類</th><th>モニター価格</th><th>1回単価</th></tr></thead>
+      <tbody>
+        <tr><td>10回券</td><td><strong>¥66,000</strong></td><td>¥6,600</td></tr>
+        <tr><td>20回券</td><td><strong>¥110,000</strong></td><td>¥5,500</td></tr>
+      </tbody>
+    </table>
+    <div class="note">管理費（別途・現金のみ）：初回1,500円 ／ 2回目以降 800円（※体験日は不要）</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 18</span>
+    <p>分割払い</p>
+    <img src="images/seitai_tool_18.png" alt="スライド18" class="tool-img">
+    <img src="images/seitai_tool_19.png" alt="スライド19（分割詳細）" class="tool-img" style="margin-top:8px;">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>8〜9. クロージング（沈黙を待つ）</h3>
+    <div class="serif">「どれが一番始めやすいですか？」 ← ここで沈黙OK。答えを待つ。</div>
+    <div class="serif">（悩んでいる場合）何で悩んでいるのかを聞いてあげる。料金で迷っている場合は、分割も可能であることを伝える。<br>「1ヶ月あたりの予算はどれぐらいやったらいけるんですか？」<br>「1ヶ月あたりの予算はどれぐらいが理想ですか？」<br>そこに合わせて分割の提案をする。最大24分割で月々4,600円〜。</div>
+    <div class="warn">提案後の沈黙を埋めない。患者さんが考えている時間は大切。焦って「どうですか？」を繰り返さない。</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 19</span>
+    <p>キャンセルポリシー</p>
+    <img src="images/seitai_tool_20.png" alt="スライド19（キャンセルポリシー）" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>11. キャンセルポリシーの説明</h3>
+    <div class="serif">「最後にキャンセルポリシーのご説明です。<br>①変更・キャンセルは前日の20時までにLINEでご連絡ください。<br>②キャンセル料について。前日20時以降・当日のキャンセルが同じ月に2回以上発生した場合、回数券1回分をキャンセル料としていただきます。<br>※お体の不調やお仕事の都合でもキャンセル料は発生しますのでご了承ください。<br>③無断キャンセルが繰り返された場合、次回以降の事前予約をお断りさせていただく場合がございます。<br>④遅刻された場合は、ご予約いただいた時間内での施術となりますので、施術時間が短くなります。<br>⑤例外として、甚大な被害を伴う地震・警報レベルの自然災害、またはJR・都市高速など公共交通機関が全面停止した場合はキャンセル料はかかりません。<br>⑥再診料について。最終来院日から1ヶ月以上空いた場合、お体の状態を再度検査する必要がありますので、再診料1,500円がかかります。」</div>
+  </div>
+</div>
+
+<!-- 来院経路の確認（一番最後） -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">📱 スライド 21〜26</span>
+    <p>インスタ / 検索 / Google / ホットペッパー</p>
+    <img src="images/seitai_tool_21.png" alt="スライド21" class="tool-img">
+    <img src="images/seitai_tool_22.png" alt="スライド22" class="tool-img" style="margin-top:8px;">
+    <img src="images/seitai_tool_23.png" alt="スライド23" class="tool-img" style="margin-top:8px;">
+    <img src="images/seitai_tool_24.png" alt="スライド24" class="tool-img" style="margin-top:8px;">
+    <img src="images/seitai_tool_25.png" alt="スライド25" class="tool-img" style="margin-top:8px;">
+    <img src="images/seitai_tool_26.png" alt="スライド26" class="tool-img" style="margin-top:8px;">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+    <h3>来院経路の確認（最後に聞く）</h3>
+    <div class="serif">「ちなみに、どこで当院を知っていただきましたか？」</div>
+    <div class="note">インスタ・Google・ホットペッパーの中から確認。検索キーワードも覚えていれば聞く。マーケティング記録として残す。</div>
+    <div class="tip">問診の終わりや施術前など、会話の流れで自然に聞く。スライドを見せながら「これ経由ですか？」と選んでもらうとスムーズ。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>締め・お見送り 👋</h3>
+  <div class="serif">「以上です！今日は来てくださってありがとうございました！またお会いしましょう！」</div>
+  <p style="margin-top:8px; color:#666;">スライドなし — 笑顔でお見送り</p>
+</div>
+
+<div class="footer">
+  整体 AILE SHIGA｜新規問診 ツール提案書 ※スタッフ内部資料
+</div>
+
+</div><!-- /container -->
+</div><!-- /km-wrap -->
+</div><!-- /scroll wrapper -->
+</div><!-- /tab-kyouiku -->
+
+<!-- ============================================ -->
+<!-- TAB 3: 電話対応 -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-denwa">
+  <div class="container">
+
+    <section class="overview">
+      <h2>電話対応マニュアル</h2>
+      <p style="font-size:14px; color:var(--text-light);">シーン別の対応スクリプトと注意点をまとめています。</p>
+      <div class="highlight blue">
+        <strong>電話対応の基本3原則：</strong><br>
+        1. 3コール以内に出る<br>
+        2. 院名 + 自分の名前を名乗る<br>
+        3. メモを取りながら対応する
+      </div>
+    </section>
+
+    <!-- シーン1: 新規予約 -->
+    <div class="phone-scenario ps1">
+      <div class="phone-scenario-header">
+        <span>📞</span> シーン1：新規予約の電話
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block">
+          <div class="label">スタッフ ― 応答</div>
+          <p>「お電話ありがとうございます。整体AILE SHIGA、○○でございます。」</p>
+        </div>
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「初めてなんですが、予約したいんですけど...」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― ヒアリング</div>
+          <p>「ありがとうございます。初めてのご来院ですね。お電話いただきありがとうございます。<br>
+          いくつかお伺いしてもよろしいでしょうか？」</p>
+        </div>
+        <div class="section-title">確認項目</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> お名前（フルネーム・読み仮名）</h4>
+          <p>「お名前をフルネームで教えていただけますか？」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 連絡先（電話番号）</h4>
+          <p>「ご連絡先のお電話番号をお願いいたします。」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 症状・お悩み</h4>
+          <p>「どのような症状でお悩みですか？簡単にで結構です。」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> ご希望日時</h4>
+          <p>「ご希望のお日にちとお時間はございますか？」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 来院方法の確認</h4>
+          <p>「当院の場所はご存知ですか？最寄り駅からのアクセスをご案内しましょうか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― クロージング</div>
+          <p>「それでは、○月○日○時でご予約をお取りいたしました。<br>
+          当日は初回ということで約60分ほどお時間をいただきます。<br>
+          初回料金は¥1,500でございます。<br>
+          ご来院お待ちしております。」</p>
+        </div>
+        <div class="highlight green">
+          <strong>ポイント：</strong>初回体験¥1,500であることを必ず伝え、来院のハードルを下げましょう。
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン2: 予約変更 -->
+    <div class="phone-scenario ps2">
+      <div class="phone-scenario-header">
+        <span>📅</span> シーン2：予約変更・キャンセル
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block">
+          <div class="label">スタッフ ― 応答</div>
+          <p>「お電話ありがとうございます。整体AILE SHIGA、○○でございます。」</p>
+        </div>
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「予約を変更（キャンセル）したいのですが...」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 対応</div>
+          <p>「承知いたしました。お名前とご予約日時を教えていただけますか？」</p>
+        </div>
+        <div class="section-title">対応手順</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 予約情報の確認</h4>
+          <p>お名前・予約日時を照合し、予約を特定する。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 変更 or キャンセルの確認</h4>
+          <p>日程変更の場合 → 新しい希望日時をヒアリング。<br>キャンセルの場合 → 理由を伺い、可能なら別日を提案。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 振替提案（キャンセルの場合）</h4>
+          <p>「もしよろしければ、別のお日にちへの振替も可能ですがいかがでしょうか？」</p>
+        </div>
+        <div class="highlight">
+          <strong>注意：</strong>無断キャンセルが続く場合は、院長へ報告してください。
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン3: 料金問い合わせ -->
+    <div class="phone-scenario ps3">
+      <div class="phone-scenario-header">
+        <span>💰</span> シーン3：料金の問い合わせ
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「料金はいくらですか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 回答</div>
+          <p>「ご質問ありがとうございます。<br>
+          初回は特別価格の¥1,500で、約60分の施術を体験していただけます。<br>
+          2回目以降の詳しい料金はご来院時にご案内しております。<br>
+          まずは初回体験にいらしてみませんか？」</p>
+        </div>
+        <div class="highlight">
+          <strong>ポイント：</strong>電話では詳細な回数券価格の説明は避け、初回体験¥1,500で来院を促しましょう。来院後の対面カウンセリングで丁寧に説明する方が成約率が上がります。
+        </div>
+        <div class="section-title">聞かれた場合の参考料金</div>
+        <table class="price-table">
+          <thead>
+            <tr><th>プラン</th><th>料金</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>初回体験</td><td class="price">¥1,500</td></tr>
+            <tr><td>2回目</td><td class="price">¥800</td></tr>
+            <tr><td>10回プラン</td><td class="price">¥66,000（¥6,600/回）</td></tr>
+            <tr><td>20回プラン</td><td class="price">¥110,000（¥5,500/回）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- シーン4: 症状相談 -->
+    <div class="phone-scenario ps4">
+      <div class="phone-scenario-header">
+        <span>🩺</span> シーン4：症状の相談・質問
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「○○の症状があるんですが、そちらで対応できますか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 回答</div>
+          <p>「お問い合わせいただきありがとうございます。<br>
+          ○○の症状でお悩みなんですね。おつらいですよね。<br>
+          当院では、まず初回に検査とカウンセリングを行い、<br>
+          お客様の状態に最適な施術プランをご提案しております。<br>
+          多くの患者様に改善を実感していただいておりますので、<br>
+          ぜひ一度ご来院いただければと思います。」</p>
+        </div>
+        <div class="highlight red">
+          <strong>注意事項：</strong><br>
+          ・電話で「治ります」「絶対良くなります」等の断言はNG<br>
+          ・医療行為に関する発言は避ける<br>
+          ・「改善が期待できます」「多くの方に喜ばれています」等の表現を使う<br>
+          ・判断に迷う場合は「確認して折り返します」と伝え、院長に相談する
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン5: クレーム -->
+    <div class="phone-scenario ps5">
+      <div class="phone-scenario-header">
+        <span>⚠️</span> シーン5：クレーム・ご不満
+      </div>
+      <div class="phone-scenario-body">
+        <div class="section-title">クレーム対応の基本ステップ</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> まず傾聴する</h4>
+          <p>お客様の話を最後まで聞き、途中で遮らない。「おっしゃる通りです」「ご不快な思いをさせてしまい申し訳ございません」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 事実確認</h4>
+          <p>日時・担当者・内容を正確にメモする。復唱して確認する。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 謝罪と対応策の提示</h4>
+          <p>「大変申し訳ございません。すぐに担当者（院長）に確認し、ご連絡させていただきます。」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 院長へエスカレーション</h4>
+          <p>内容をすべてメモし、速やかに院長へ報告する。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 折り返し連絡</h4>
+          <p>約束した時間内に必ず折り返す。対応策を明確に伝える。</p>
+        </div>
+        <div class="highlight red">
+          <strong>絶対にやってはいけないこと：</strong><br>
+          ・お客様と口論する<br>
+          ・「でも」「ですが」で反論する<br>
+          ・たらい回しにする<br>
+          ・その場で勝手に判断して約束する（返金・無料施術等）
+        </div>
+      </div>
+    </div>
+
+    <!-- 電話メモテンプレート -->
+    <section class="step-section s2">
+      <div class="step-header">
+        <div class="step-num">📝</div>
+        <div class="step-info">
+          <h3>電話メモテンプレート</h3>
+          <p>電話対応時に必ず記録する項目</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4>記録必須項目</h4>
+          <ul>
+            <li><strong>受電日時：</strong>○月○日 ○時○分</li>
+            <li><strong>対応者：</strong>自分の名前</li>
+            <li><strong>お客様名：</strong>フルネーム（読み仮名）</li>
+            <li><strong>電話番号：</strong>折り返し先</li>
+            <li><strong>用件：</strong>新規予約 / 変更 / キャンセル / 問い合わせ / その他</li>
+            <li><strong>詳細内容：</strong>聞いた内容をメモ</li>
+            <li><strong>対応結果：</strong>予約確定 / 折り返し予定 / 院長へ引継ぎ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="footer">
+  AILE SHIGA ― 整体部門マニュアル<br>
+  このページはローカル環境で動作しています。外部通信は行いません。
+</div>
+
+<script>
+// Auth guard
+(async()=>{const H='948c710e16a15027a561598d053fdf1e910b9d222cab0ac0d09f23a01cc8416b';const s=sessionStorage.getItem('auth');if(s!==H){window.location.href='../index.html';return;}})();
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  const tabs = document.querySelectorAll('.main-tab');
+  const map = { shinki: 0, kyouiku: 1, denwa: 2 };
+  tabs[map[tabId]].classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+function scrollToEl(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>店舗マニュアル管理 - ログイン</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Meiryo', 'Yu Gothic', sans-serif;
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #01579b 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 50px 40px;
+    width: 400px;
+    max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+  .login-card .logo { font-size: 56px; margin-bottom: 16px; }
+  .login-card h1 { font-size: 22px; font-weight: 700; color: #333; margin-bottom: 6px; }
+  .login-card p { font-size: 14px; color: #999; margin-bottom: 30px; }
+  .input-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .input-group input {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    outline: none;
+    text-align: center;
+    letter-spacing: 8px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .input-group input:focus { border-color: #1a73e8; }
+  .input-group input.error { border-color: #d32f2f; animation: shake 0.3s; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+  }
+  .login-btn:hover { box-shadow: 0 6px 20px rgba(26,115,232,0.4); }
+  .login-btn:active { transform: scale(0.98); }
+  .error-msg {
+    color: #d32f2f;
+    font-size: 13px;
+    margin-top: 12px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+  .footer-text {
+    margin-top: 24px;
+    font-size: 11px;
+    color: #ccc;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="logo">🔒</div>
+  <h1>店舗マニュアル管理</h1>
+  <p>パスワードを入力してください</p>
+  <div class="input-group">
+    <input type="password" id="pwInput" placeholder="••••" maxlength="10" autofocus>
+  </div>
+  <button class="login-btn" onclick="doLogin()">ログイン</button>
+  <div class="error-msg" id="errorMsg">パスワードが正しくありません</div>
+  <div class="footer-text">AILE SHIGA ― スタッフ専用</div>
+</div>
+
+<script>
+const HASH = '948c710e16a15027a561598d053fdf1e910b9d222cab0ac0d09f23a01cc8416b';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function doLogin() {
+  const pw = document.getElementById('pwInput').value;
+  const hash = await sha256(pw);
+  if (hash === HASH) {
+    sessionStorage.setItem('auth', hash);
+    window.location.href = 'main.html';
+  } else {
+    document.getElementById('pwInput').classList.add('error');
+    document.getElementById('errorMsg').classList.add('show');
+    setTimeout(() => {
+      document.getElementById('pwInput').classList.remove('error');
+    }, 300);
+  }
+}
+
+document.getElementById('pwInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+  document.getElementById('errorMsg').classList.remove('show');
+});
+
+// Already authenticated
+(async () => {
+  const s = sessionStorage.getItem('auth');
+  if (s === HASH) window.location.href = 'main.html';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美容部門 | AILE SHIGA</title>
+<style>
+  :root {
+    --primary: #e91e90;
+    --primary-light: #fce4ec;
+    --accent: #880e4f;
+    --bg: #faf8f9;
+    --card: #ffffff;
+    --text: #333;
+    --text-light: #666;
+    --border: #e0e0e0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Meiryo', 'Yu Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #e91e90, #9c27b0);
+    color: #fff;
+    padding: 40px 40px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .header .back-link {
+    position: absolute;
+    top: 20px; left: 20px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .header .back-link:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .header h1 { font-size: 30px; font-weight: 700; margin-bottom: 6px; }
+  .header p { font-size: 15px; opacity: 0.85; }
+
+  /* Main tabs */
+  .main-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: linear-gradient(135deg, #ad1457, #880e4f);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .main-tab {
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    user-select: none;
+    text-align: center;
+    min-width: 140px;
+  }
+  .main-tab:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+  .main-tab.active {
+    color: #fff;
+    border-bottom-color: #ffd54f;
+    background: rgba(255,255,255,0.1);
+  }
+  .main-tab .tab-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+  /* Tab content */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Sub navigation */
+  .step-nav {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    position: sticky;
+    top: 67px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .step-nav a {
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-light);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .step-nav a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 80px; }
+
+  .overview {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .overview h2 { font-size: 20px; margin-bottom: 15px; color: var(--accent); }
+
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 20px 0;
+  }
+  .flow-step {
+    background: var(--primary);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 90px;
+  }
+  .flow-arrow { color: var(--primary); font-size: 16px; font-weight: 700; }
+
+  .step-section {
+    background: var(--card);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .step-header {
+    padding: 22px 28px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .step-header .step-num { font-size: 34px; font-weight: 800; opacity: 0.3; line-height: 1; }
+  .step-header .step-info h3 { font-size: 20px; font-weight: 700; }
+  .step-header .step-info p { font-size: 13px; opacity: 0.85; }
+
+  .s1 .step-header { background: linear-gradient(135deg, #e91e90, #d81b60); }
+  .s2 .step-header { background: linear-gradient(135deg, #d81b60, #c2185b); }
+  .s3 .step-header { background: linear-gradient(135deg, #c2185b, #ad1457); }
+  .s4 .step-header { background: linear-gradient(135deg, #ad1457, #9c27b0); }
+  .s5 .step-header { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+  .s6 .step-header { background: linear-gradient(135deg, #7b1fa2, #6a1b9a); }
+  .s7 .step-header { background: linear-gradient(135deg, #6a1b9a, #4a148c); }
+  .s8 .step-header { background: linear-gradient(135deg, #4a148c, #311b92); }
+  .s9 .step-header { background: linear-gradient(135deg, #311b92, #1a237e); }
+  .s10 .step-header { background: linear-gradient(135deg, #1a237e, #0d47a1); }
+
+  .step-body { padding: 22px 28px; }
+
+  .sub-step {
+    border-left: 3px solid var(--primary);
+    padding: 10px 0 10px 18px;
+    margin-bottom: 14px;
+  }
+  .sub-step:last-child { margin-bottom: 0; }
+  .sub-step h4 {
+    font-size: 15px;
+    color: var(--primary);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-step h4 .num {
+    background: var(--primary);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .sub-step p, .sub-step ul { font-size: 14px; color: var(--text-light); }
+  .sub-step ul { padding-left: 20px; margin-top: 4px; }
+  .sub-step li { margin: 3px 0; }
+
+  .highlight {
+    background: #fce4ec;
+    border: 1px solid #f48fb1;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .highlight.purple { background: #f3e5f5; border-color: #ce93d8; }
+  .highlight.green { background: #e8f5e9; border-color: #a5d6a7; }
+  .highlight.blue { background: #e3f2fd; border-color: #90caf9; }
+  .highlight.red { background: #ffebee; border-color: #ef9a9a; }
+  .highlight strong { color: var(--accent); }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary);
+    padding: 10px 0;
+    border-bottom: 2px solid var(--primary);
+    margin: 20px 0 16px;
+  }
+
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .price-table th {
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .price-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-table tr:nth-child(even) td { background: #faf8f9; }
+  .price-table .price { font-weight: 700; color: var(--accent); }
+
+  .qa-item {
+    background: #faf8f9;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 8px 0;
+  }
+  .qa-item .q { font-weight: 700; color: var(--primary); font-size: 14px; margin-bottom: 4px; }
+  .qa-item .a { font-size: 14px; color: var(--text-light); }
+
+  /* Education cards */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .edu-card {
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+  }
+  .edu-card:hover { transform: translateY(-3px); }
+  .edu-card-header {
+    padding: 18px 20px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .edu-card-header .icon { font-size: 24px; }
+  .edu-card-body { padding: 18px 20px; }
+  .edu-card-body p { font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
+  .edu-card-body ul { font-size: 14px; color: var(--text-light); padding-left: 18px; }
+  .edu-card-body li { margin: 4px 0; }
+
+  .c1 .edu-card-header { background: linear-gradient(135deg, #e91e90, #d81b60); }
+  .c2 .edu-card-header { background: linear-gradient(135deg, #c2185b, #ad1457); }
+  .c3 .edu-card-header { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+  .c4 .edu-card-header { background: linear-gradient(135deg, #6a1b9a, #4a148c); }
+  .c5 .edu-card-header { background: linear-gradient(135deg, #311b92, #1a237e); }
+  .c6 .edu-card-header { background: linear-gradient(135deg, #0d47a1, #01579b); }
+
+  /* Phone section */
+  .phone-scenario {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .phone-scenario-header {
+    padding: 18px 24px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .phone-scenario-body { padding: 20px 24px; }
+
+  .ps1 .phone-scenario-header { background: linear-gradient(135deg, #e91e90, #d81b60); }
+  .ps2 .phone-scenario-header { background: linear-gradient(135deg, #c2185b, #ad1457); }
+  .ps3 .phone-scenario-header { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+  .ps4 .phone-scenario-header { background: linear-gradient(135deg, #4a148c, #311b92); }
+  .ps5 .phone-scenario-header { background: linear-gradient(135deg, #1a237e, #0d47a1); }
+
+  .script-block {
+    background: #fdf2f8;
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .script-block .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .script-block p { color: #555; }
+  .script-block.customer {
+    border-left-color: #ff9800;
+    background: #fff8f0;
+  }
+  .script-block.customer .label { color: #e65100; }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <a href="../index.html" class="back-link">← マニュアル一覧へ戻る</a>
+  <div class="badge">美容部門 AILE SHIGA</div>
+  <h1>美容部門マニュアル</h1>
+  <p>新規フロー・教育ツール・電話対応の総合ガイド</p>
+</div>
+
+<!-- Main Tabs -->
+<div class="main-tabs">
+  <div class="main-tab active" onclick="switchTab('shinki')">
+    <span class="tab-icon">📋</span>
+    新規フロー
+  </div>
+  <div class="main-tab" onclick="switchTab('kyouiku')">
+    <span class="tab-icon">📚</span>
+    教育ツール
+  </div>
+  <div class="main-tab" onclick="switchTab('denwa')">
+    <span class="tab-icon">📞</span>
+    電話対応
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 1: 新規フロー -->
+<!-- ============================================ -->
+<div class="tab-content active" id="tab-shinki">
+
+  <nav class="step-nav">
+    <a href="#" onclick="scrollToEl('shinki-overview')">全体</a>
+    <a href="#" onclick="scrollToEl('shinki-s1')">1.受付</a>
+    <a href="#" onclick="scrollToEl('shinki-s2')">2.問診票</a>
+    <a href="#" onclick="scrollToEl('shinki-s3')">3.カウンセリング</a>
+    <a href="#" onclick="scrollToEl('shinki-s4')">4.施術説明</a>
+    <a href="#" onclick="scrollToEl('shinki-s5')">5.施術</a>
+    <a href="#" onclick="scrollToEl('shinki-s6')">6.アフター</a>
+    <a href="#" onclick="scrollToEl('shinki-s7')">7.クロージング</a>
+    <a href="#" onclick="scrollToEl('shinki-s8')">8.会計</a>
+    <a href="#" onclick="scrollToEl('shinki-s9')">9.次回予約</a>
+    <a href="#" onclick="scrollToEl('shinki-s10')">10.お見送り</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- Overview -->
+    <section class="overview" id="shinki-overview">
+      <h2>全体フロー概要（全10ステップ）</h2>
+      <p style="font-size:14px; color:var(--text-light); margin-bottom:15px;">2026年4月版 ― 小顔矯正ツール × 新規問診マニュアル</p>
+      <div class="flow-diagram">
+        <div class="flow-step">1.受付</div><span class="flow-arrow">→</span>
+        <div class="flow-step">2.問診票</div><span class="flow-arrow">→</span>
+        <div class="flow-step">3.カウンセリング</div><span class="flow-arrow">→</span>
+        <div class="flow-step">4.施術説明</div><span class="flow-arrow">→</span>
+        <div class="flow-step">5.施術</div><span class="flow-arrow">→</span>
+        <div class="flow-step">6.アフター</div><span class="flow-arrow">→</span>
+        <div class="flow-step">7.クロージング</div><span class="flow-arrow">→</span>
+        <div class="flow-step">8.会計</div><span class="flow-arrow">→</span>
+        <div class="flow-step">9.次回予約</div><span class="flow-arrow">→</span>
+        <div class="flow-step">10.お見送り</div>
+      </div>
+      <div class="highlight purple">
+        <strong>ポイント：</strong>各STEPのページ番号（P1〜P26）を確認しながらツールを活用してください。
+      </div>
+    </section>
+
+    <!-- STEP 1 -->
+    <section class="step-section s1" id="shinki-s1">
+      <div class="step-header">
+        <div class="step-num">01</div>
+        <div class="step-info">
+          <h3>受付</h3>
+          <p>お客様のお出迎え</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> お出迎え・ご挨拶</h4>
+          <p>笑顔でお客様をお迎えし、お名前を確認します。</p>
+          <ul>
+            <li>予約の確認</li>
+            <li>初来店の方への丁寧なご案内</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> お席へのご案内</h4>
+          <p>施術スペースにご案内し、お荷物をお預かりします。</p>
+          <ul>
+            <li>ドリンクのご提供</li>
+            <li>リラックスしていただける声かけ</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 問診票のお渡し</h4>
+          <p>問診票をお渡しし、記入をお願いします。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section s2" id="shinki-s2">
+      <div class="step-header">
+        <div class="step-num">02</div>
+        <div class="step-info">
+          <h3>問診票の確認</h3>
+          <p>P1〜P4 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">P1 ｜ 基本情報の確認</div>
+        <div class="sub-step">
+          <h4><span class="num">P1</span> 基本情報</h4>
+          <p>記入いただいた問診票の基本情報を確認します。</p>
+          <ul>
+            <li>お名前・ご連絡先</li>
+            <li>来店の動機・きっかけ</li>
+            <li>気になる部位</li>
+            <li>過去の美容施術経験</li>
+            <li>アレルギーの有無</li>
+          </ul>
+        </div>
+        <div class="section-title">P2・P3 ｜ 詳細確認</div>
+        <div class="sub-step">
+          <h4><span class="num">P2</span> お悩みの詳細</h4>
+          <p>お顔やお身体のお悩みについて詳しくヒアリングします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">P3</span> ライフスタイルの確認</h4>
+          <p>普段のケアや生活習慣を確認します。</p>
+          <ul>
+            <li>スキンケアの状況</li>
+            <li>食生活・睡眠の状況</li>
+            <li>ストレス状況</li>
+            <li>約60分の施術であることのご案内</li>
+          </ul>
+        </div>
+        <div class="section-title">P4 ｜ ゴール設定</div>
+        <div class="sub-step">
+          <h4><span class="num">P4</span> 理想のイメージ共有</h4>
+          <p>施術後にどうなりたいかをお聞きし、ゴールを共有します。</p>
+          <div class="highlight purple">
+            <strong>P4が完了したら → STEP3のカウンセリングへ進む</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section s3" id="shinki-s3">
+      <div class="step-header">
+        <div class="step-num">03</div>
+        <div class="step-info">
+          <h3>カウンセリング</h3>
+          <p>P5 を使用 ― 質問形式で深掘り</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">P5 ｜ カウンセリング質問 (Q1〜Q8)</div>
+        <div class="qa-item">
+          <div class="q">Q1. ご来店のきっかけ</div>
+          <div class="a">何がきっかけでご来店いただきましたか？（紹介・SNS・検索など）</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q2. 一番気になる箇所</div>
+          <div class="a">お顔で一番気になっている箇所はどこですか？<br>・エラの張り ・頬骨 ・顎のライン ・左右差</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q3. いつ頃から気になっていますか？</div>
+          <div class="a">お悩みが始まった時期と、変化の経過を確認します。</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q4. 過去の美容施術経験</div>
+          <div class="a">小顔矯正やフェイシャル等の施術を受けたことはありますか？<br>・効果の実感 ・施術内容 ・満足度</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q5. 日常のクセ・習慣</div>
+          <div class="a">噛み癖（左右どちら）、頬杖、うつ伏せ寝などの習慣はありますか？<br>・食いしばり ・歯ぎしり ・姿勢の癖</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q6. 理想のゴール</div>
+          <div class="a">施術を通じてどうなりたいですか？具体的なイメージを共有します。</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q7. 通院可能な頻度</div>
+          <div class="a">5〜10日に1回のペースをお勧めしつつ、ご都合を確認します。</div>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q8. ご予算感</div>
+          <div class="a">月々のご予算感をお聞きし、最適なプランをご提案します。</div>
+        </div>
+        <div class="highlight">
+          <strong>約8分を目安に進めましょう。</strong>お客様の話を傾聴しつつ、必要な情報を収集します。
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section s4" id="shinki-s4">
+      <div class="step-header">
+        <div class="step-num">04</div>
+        <div class="step-info">
+          <h3>施術説明</h3>
+          <p>PART A（P6）+ PART B を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">PART A ｜ P6 小顔矯正の説明</div>
+        <div class="sub-step">
+          <h4><span class="num">P6</span> 施術の特徴説明</h4>
+          <p>小顔矯正ツールと施術の特徴を説明します。</p>
+          <ul>
+            <li>骨格へのアプローチ方法</li>
+            <li>筋肉・筋膜へのアプローチ</li>
+            <li>リンパの流れの改善</li>
+            <li>むくみの解消メカニズム</li>
+            <li>痛みの少ない施術であること</li>
+            <li>施術時間の目安</li>
+            <li>効果の持続期間</li>
+            <li>回数を重ねることでの変化</li>
+            <li>施術前後の注意事項</li>
+          </ul>
+        </div>
+        <div class="section-title">PART B ｜ 効果とエビデンス</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 施術効果の説明</h4>
+          <p>期待できる効果を具体的にお伝えします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> Before/After症例の提示</h4>
+          <p>過去の施術事例を写真でご紹介します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> お客様の状態に合わせた提案</h4>
+          <p>ヒアリング結果をもとに、最適な施術プランを提案します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 施術の流れの説明</h4>
+          <p>本日の施術がどのように進むかを説明します。</p>
+          <ul>
+            <li>所要時間</li>
+            <li>使用するツール</li>
+            <li>痛みへの配慮</li>
+            <li>施術中のコミュニケーション</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section s5" id="shinki-s5">
+      <div class="step-header">
+        <div class="step-num">05</div>
+        <div class="step-info">
+          <h3>施術</h3>
+          <p>P8〜P16 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">P8 ｜ 施術開始</div>
+        <div class="sub-step">
+          <h4><span class="num">P8</span> Before写真撮影・施術準備</h4>
+          <p>施術前の状態を記録し、施術に入ります。</p>
+          <ul>
+            <li>正面・斜め・側面から撮影</li>
+            <li>お顔の左右差の確認</li>
+            <li>気になるポイントの再確認</li>
+            <li>マスク / タオル / ヘアバンドの準備</li>
+          </ul>
+        </div>
+        <div class="section-title">P9 ｜ フェイスライン施術</div>
+        <div class="sub-step">
+          <h4><span class="num">P9</span> フェイスラインの施術</h4>
+          <p>小顔矯正ツールを使用し、フェイスラインを整えます。</p>
+          <ul>
+            <li>エラ周りの筋肉をほぐす</li>
+            <li>フェイスラインのリフトアップ</li>
+            <li>約10分を目安に施術</li>
+          </ul>
+        </div>
+        <div class="section-title">P10・P11 ｜ 頬骨・額の施術</div>
+        <div class="sub-step">
+          <h4><span class="num">P10</span> 頬骨周りの施術</h4>
+          <p>頬骨周辺の施術を行います（約10分）。左右差を確認しバランスを整えます。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">P11</span> 額・こめかみの施術</h4>
+          <p>額やこめかみ周辺を施術します（3〜7分、1回目安）。</p>
+          <ul>
+            <li>おでこの丸みを整える</li>
+            <li>こめかみのハリ改善</li>
+            <li>頭蓋骨の歪み調整</li>
+          </ul>
+        </div>
+        <div class="section-title">P12 ｜ デコルテ・首</div>
+        <div class="sub-step">
+          <h4><span class="num">P12</span> デコルテ・首周りの施術</h4>
+          <p>リンパの流れを促進し、むくみを解消します（約2分）。</p>
+        </div>
+        <div class="section-title">P13 ｜ 仕上げ確認</div>
+        <div class="sub-step">
+          <h4><span class="num">P13</span> 仕上がり確認</h4>
+          <p>施術の仕上がりを確認し、問題がなければOK。</p>
+          <div class="highlight green">STEP10で再度使用するページです。</div>
+        </div>
+        <div class="section-title">P14 ｜ 特別施術</div>
+        <div class="sub-step">
+          <h4><span class="num">P14</span> 追加ポイント施術</h4>
+          <p>お客様の状態に応じた追加施術を行います（約5分）。</p>
+        </div>
+        <div class="section-title">P15・P16 ｜ 回数プラン提案</div>
+        <div class="sub-step">
+          <h4><span class="num">P15</span> 3回コースのご提案</h4>
+          <p>まずは3回のコースで変化を実感していただくプランを提案します。</p>
+          <ul>
+            <li>8〜12回での理想プラン</li>
+            <li>通院間隔は2〜1週間</li>
+          </ul>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">P16</span> 料金プランの案内</h4>
+          <p>単発: ¥5,500〜¥8,000 / 回数券でのお得なプラン。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step-section s6" id="shinki-s6">
+      <div class="step-header">
+        <div class="step-num">06</div>
+        <div class="step-info">
+          <h3>アフターカウンセリング</h3>
+          <p>P7 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">P7</span> After写真撮影・比較</h4>
+          <p>施術後の写真を撮影し、Before/Afterを比較します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 変化の確認</h4>
+          <p>施術前後の変化をお客様にご確認いただきます。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 感想のヒアリング</h4>
+          <p>施術を受けた率直なご感想をお聞きします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 改善ポイントの解説</h4>
+          <p>どこがどう変化したか、具体的にお伝えします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 今後の変化イメージ</h4>
+          <p>継続した場合の更なる変化をお伝えします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> セルフケアのアドバイス</h4>
+          <p>ご自宅でできるケア方法をお伝えします。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="step-section s7" id="shinki-s7">
+      <div class="step-header">
+        <div class="step-num">07</div>
+        <div class="step-info">
+          <h3>クロージング</h3>
+          <p>最適なプランのご提案</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> 効果の再確認</h4>
+          <p>本日の変化を改めて振り返り、効果を実感していただきます。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 通院プランのご提案</h4>
+          <p>お客様のご要望とライフスタイルに合った通院プランをご提案します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 回数券メニューの提示</h4>
+          <p>回数券の料金とメリットをご案内します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> お客様のご質問に回答</h4>
+          <p>ご不明点やご心配な点にお答えします。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> プランの決定</h4>
+          <p>お客様に最適なプランをお選びいただきます。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">6</span> 次回予約への誘導</h4>
+          <p>プランが決まったら次回予約の確認に進みます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 8 -->
+    <section class="step-section s8" id="shinki-s8">
+      <div class="step-header">
+        <div class="step-num">08</div>
+        <div class="step-info">
+          <h3>会計</h3>
+          <p>P17 を使用 ― 施術後約3分</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> 本日の施術内容・料金確認</h4>
+          <p>施術内容と料金を確認し、お支払い方法をご案内します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 領収書のお渡し</h4>
+          <p>領収書をお渡しします。</p>
+        </div>
+        <div class="highlight">
+          <strong>施術3回分の料金目安：</strong>1回目 ¥1,500 / 2回目 ¥800 / 3回目以降（回数券適用後の1回あたり）
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 9 -->
+    <section class="step-section s9" id="shinki-s9">
+      <div class="step-header">
+        <div class="step-num">09</div>
+        <div class="step-info">
+          <h3>次回予約</h3>
+          <p>P18〜P24 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="section-title">P18 ｜ 通院スケジュール</div>
+        <div class="sub-step">
+          <h4><span class="num">P18</span> 通院スケジュールの提案</h4>
+          <p>初回〜3回目は週1回ペースを推奨。効果を最大化するタイミングをご案内します。</p>
+        </div>
+        <div class="section-title">P19 ｜ 料金案内</div>
+        <table class="price-table">
+          <thead><tr><th>項目</th><th>料金</th></tr></thead>
+          <tbody>
+            <tr><td>初回体験 1回目</td><td class="price">¥1,500</td></tr>
+            <tr><td>2回目</td><td class="price">¥800</td></tr>
+            <tr><td>施術1回あたり</td><td class="price">¥8,250</td></tr>
+          </tbody>
+        </table>
+        <div class="section-title">P20 ｜ 回数券プラン</div>
+        <table class="price-table">
+          <thead><tr><th>プラン</th><th>通常価格</th><th>回数券価格</th><th>1回あたり</th></tr></thead>
+          <tbody>
+            <tr><td>10回プラン</td><td>¥82,500</td><td class="price">¥66,000</td><td class="price">¥6,600/回</td></tr>
+            <tr><td>20回プラン</td><td>¥165,000</td><td class="price">¥110,000</td><td class="price">¥5,500/回</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight green">
+          <strong>20回プランが最もお得！</strong> 1回あたり ¥5,500 で通常の約33%OFF。
+        </div>
+        <div class="section-title">P24 ｜ 予約確定</div>
+        <div class="sub-step">
+          <h4><span class="num">P24</span> 次回予約の確定</h4>
+          <p>2回目は20日以内（理想は1週間以内）。LINE予約のご案内。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 10 -->
+    <section class="step-section s10" id="shinki-s10">
+      <div class="step-header">
+        <div class="step-num">10</div>
+        <div class="step-info">
+          <h3>お見送り</h3>
+          <p>P13・P25 を使用</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">P13</span> 最終確認</h4>
+          <p>お忘れ物チェック・次回ご来店日の再確認。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">P25</span> Googleレビューのお願い</h4>
+          <p>QRコードまたは直接リンクでGoogleレビューをご案内します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> LINE登録のご案内</h4>
+          <p>LINE公式アカウントの友だち追加をご案内します。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> お見送り</h4>
+          <p>出口までお送りし、好転反応の可能性と水分摂取（1〜2リットル）をご案内します。</p>
+        </div>
+        <div class="highlight purple">
+          <strong>全ステップ完了！</strong>お客様の満足度を高め、次回来店へつなげましょう。20日以内の再来店・LINEフォローが重要です。
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Reference -->
+    <section class="overview">
+      <h2>クイックリファレンス ― ページ対応表</h2>
+      <table class="price-table">
+        <thead><tr><th>STEP</th><th>内容</th><th>使用ページ</th></tr></thead>
+        <tbody>
+          <tr><td>STEP 1</td><td>受付</td><td>-</td></tr>
+          <tr><td>STEP 2</td><td>問診票の確認</td><td>P1〜P4</td></tr>
+          <tr><td>STEP 3</td><td>カウンセリング</td><td>P5 (Q1〜Q8)</td></tr>
+          <tr><td>STEP 4</td><td>施術説明</td><td>P6 (PART A・B)</td></tr>
+          <tr><td>STEP 5</td><td>施術</td><td>P8〜P16</td></tr>
+          <tr><td>STEP 6</td><td>アフターカウンセリング</td><td>P7</td></tr>
+          <tr><td>STEP 7</td><td>クロージング</td><td>-</td></tr>
+          <tr><td>STEP 8</td><td>会計</td><td>P17</td></tr>
+          <tr><td>STEP 9</td><td>次回予約</td><td>P18〜P24</td></tr>
+          <tr><td>STEP 10</td><td>お見送り</td><td>P13, P25</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- TAB 2: 教育ツール -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-kyouiku">
+  <div style="width:100%; max-height:calc(100vh - 67px); overflow-y:auto;">
+    <style>
+      .km-wrap {
+        font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+        background: #faf8f5;
+        color: #333;
+        line-height: 1.8;
+        padding: 0;
+      }
+      
+    .km-wrap {
+      --primary: #2d2d2d;
+      --accent: #b8860b;
+      --accent-light: #f5e6c8;
+      --bg: #faf8f5;
+      --card-bg: #ffffff;
+      --border: #e0d6c8;
+      --text: #333;
+      --text-light: #666;
+      --step-bg: #f0ebe3;
+      --tip-bg: #fffbe6;
+      --warn-bg: #fff0f0;
+      --note-bg: #e8f4fd;
+    }
+
+    
+
+    .km-wrap {
+      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      padding: 0;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2d2d2d 0%, #4a4a4a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 0.85rem;
+      color: var(--accent-light);
+      letter-spacing: 0.05em;
+    }
+
+    .header .meta {
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* STEP Header */
+    .step {
+      margin-top: 48px;
+      margin-bottom: 24px;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    .step-number {
+      background: var(--accent);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* Two column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 700px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    .col-tool, .col-script {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .col-tool {
+      border-top: 3px solid var(--accent);
+    }
+
+    .col-script {
+      border-top: 3px solid #5b8c6e;
+    }
+
+    .col-label {
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      color: var(--text-light);
+    }
+
+    .col-tool .col-label { color: var(--accent); }
+    .col-script .col-label { color: #5b8c6e; }
+
+    .page-tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* Card (single column) */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    /* Script / Serif */
+    .serif {
+      background: #f7f5f0;
+      border-left: 4px solid var(--accent);
+      padding: 14px 16px;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95rem;
+    }
+
+    .serif::before {
+      content: "💬 セリフ";
+      display: block;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    /* Tips, Warnings, Notes */
+    .tip {
+      background: var(--tip-bg);
+      border-left: 4px solid #d4a017;
+      padding: 10px 14px;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.85rem;
+    }
+
+    .tip::before {
+      content: "💡 ポイント";
+      display: block;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #b8860b;
+      margin-bottom: 4px;
+    }
+
+    .warn {
+      background: var(--warn-bg);
+      border-left: 4px solid #d44;
+      padding: 10px 14px;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.85rem;
+    }
+
+    .warn::before {
+      content: "⚠ 注意";
+      display: block;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #d44;
+      margin-bottom: 4px;
+    }
+
+    .note {
+      background: var(--note-bg);
+      border-left: 4px solid #3a7bd5;
+      padding: 10px 14px;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.85rem;
+    }
+
+    .note::before {
+      content: "📌 メモ";
+      display: block;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #3a7bd5;
+      margin-bottom: 4px;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--step-bg);
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    /* Numbered list */
+    .numbered-flow {
+      counter-reset: flow;
+      list-style: none;
+      padding: 0;
+    }
+
+    .numbered-flow li {
+      counter-increment: flow;
+      padding: 8px 0 8px 36px;
+      position: relative;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .numbered-flow li:last-child { border-bottom: none; }
+
+    .numbered-flow li::before {
+      content: counter(flow);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    /* Q list */
+    .q-item {
+      margin: 12px 0;
+      padding: 12px 16px;
+      background: #f9f7f3;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .q-item .q-label {
+      font-weight: bold;
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    /* Bone table */
+    .bone-table th:first-child { width: 35%; }
+
+    /* Footer reference */
+    .step-ref {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-align: right;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 2px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* Print styles */
+    @media print {
+      .km-wrap { background: #fff; }
+      .header { break-after: avoid; }
+      .step { break-before: page; }
+      .two-col { break-inside: avoid; }
+      .card { break-inside: avoid; }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+  
+    .tool-img {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+  
+    </style>
+    <div class="km-wrap">
+      <!-- ==================== HEADER ==================== -->
+<div class="header">
+  <h1>✨ 美容 AILE SHIGA ｜ 施術ガイド</h1>
+  <div class="subtitle">小顔矯正ツール × 新規問診マニュアル｜対照ガイド</div>
+  <div class="meta">
+    各STEPで開くツールページと、話す内容を左右で対比したガイドです<br>
+    対象：美容事業部スタッフ ／ 作成：2026年4月
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ==================== STEP 1 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">1</div>
+    受付・ビフォー写真撮影
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <p>ツールなし（まだ開かない）</p>
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト</div>
+
+    <h3>1. お出迎え</h3>
+    <div class="serif">
+      「○○様、どうぞこちらへ。お荷物をお預かりしますね。下に置いておきますね。よかったらこちらにおかけください。」
+    </div>
+
+    <h3>2. 📸 写真撮影</h3>
+    <div class="serif">
+      「まず最初に、この後お顔の変化をお伝えするために、ビフォーの写真を撮らせていただいてもいいですか？正面・左・右の順で撮りますね。髪の毛を両方とも後ろにしておいていただけると助かります。ありがとうございます。」
+    </div>
+
+    <div class="note">正面・左サイド・右サイドの3枚を必ず撮影する。ツールはまだ開かない。</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 2 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">2</div>
+    コンセプト紹介・本日の流れ説明
+  </div>
+</div>
+
+<!-- P1 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P1</span>
+    <h3>予防型整体院コンセプト</h3>
+    <p>P1〜P4 を順番に開いて説明する</p>
+    <img src="images/p1.png" alt="P1 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P1</div>
+    <div class="serif">
+      「タブレットを使いながらお話を進めますね。見にくくないですか？」
+    </div>
+    <div class="note">上記の問いかけ後、画面に書いてある文字をそのまま読み上げる。</div>
+    <div class="tip">最初にコンセプトを見せることで、院の方針を明確に伝える。自信を持って話すこと。</div>
+  </div>
+</div>
+
+<!-- P2 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P2</span>
+    <h3>本日の流れについて</h3>
+    <img src="images/p2.png" alt="P2 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P2</div>
+    <div class="note">📖 画面に書いてある内容をそのまま読み上げる。</div>
+    <div class="note">「お手洗いは大丈夫ですか？」と「伝えておきたいことは？」を必ず聞く。全体の流れを共有することで患者さんが安心できる。</div>
+  </div>
+</div>
+
+<!-- P3 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P3</span>
+    <h3>確認事項（禁忌リスト）</h3>
+    <img src="images/p3.png" alt="P3 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P3</div>
+    <div class="serif">
+      「最初に確認させてください。こちらに当てはまる項目はございますか？」
+    </div>
+    <div class="warn">禁忌に該当する場合は施術不可。最初に確認することで後のトラブルを防ぐ。</div>
+  </div>
+</div>
+
+<!-- P4 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P4</span>
+    <h3>検査と治療内容説明の前置き</h3>
+    <img src="images/p4.png" alt="P4 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P4</div>
+    <div class="serif">
+      📖 ここはそのまま読み上げる
+    </div>
+    <div class="tip">P4を見せてからSTEP3のヒアリングに移行する。患者さんの心の準備を整える。</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 3 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">3</div>
+    ヒアリング（お悩みの深掘り）
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P5</span>
+    <h3>問診「あなたのことを教えてください」</h3>
+    <p>P5 → 心を開かせる質問｜9鍵：①②③④⑤⑧</p>
+    <img src="images/p5.png" alt="P5 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P5 質問フロー</div>
+
+    <div class="q-item">
+      <div class="q-label">Q1：メインのお悩みを聞く</div>
+      <div class="serif">「今一番気になっているのはどこですか？」</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q2：悩みがあることで「何が嫌か」</div>
+      <div class="serif">「その悩みがあることで、どのような場面で嫌と感じますか？」</div>
+      <div class="note">「見た目が気になる」「人目が気になる」など悩みの本質が出てくる</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q3：いつ頃からか</div>
+      <div class="serif">「その悩みは、いつ頃から気になり始めましたか？」</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q4：最初と比べて今どうか</div>
+      <div class="serif">「最初に悩み出した時と比べて、今はどうなっていますか？良くなっていますか？それとも悪くなっていますか？」</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q5：これまで試したことを聞く</div>
+      <div class="serif">「そのお悩みを解決するために、今までどこかへ行ったり、〇〇さん自身でやってみたりしたことはありましたか？」</div>
+      <div class="serif">（あった場合）「やってみてどうでしたか？」</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q6：なぜ「今日」来たのかを聞く</div>
+      <div class="serif">「なぜ今日、治そうと思って来てくださったんですか？」</div>
+      <div class="note">「今日動いた理由」は継続動機に直結</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q7：このまま続いたらどうなるか</div>
+      <div class="serif">「もしこの悩みが、これから5年・10年と続いた時に、どうなっているのが一番嫌ですか？」</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">Q8：理想の状態を聞く</div>
+      <div class="serif">「逆に、どうなっていると一番嬉しいですか？」</div>
+      <div class="note">ここで出た「理想」を後のプラン提案でそのまま引用する</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 4 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">4</div>
+    現状の確認（ツール解説 → 写真確認）
+  </div>
+</div>
+
+<div class="step-ref">PART A：P6 骨格解説 → PART B：写真で実感 ｜ 9鍵：④⑤ ※このステップが納得感を作る核心</div>
+
+<!-- P6 PART A -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P6</span>
+    <h3>骨格図（骨と悩みの対応表）</h3>
+
+    <table class="bone-table">
+      <thead>
+        <tr><th>骨格の部位</th><th>歪むと出る悩み</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>側頭骨（こめかみ）</td><td>エラ張り・食いしばり・頭痛・こめかみの張り</td></tr>
+        <tr><td>頬骨（頬の土台）</td><td>ほうれい線・頬のたるみ・顔の左右差</td></tr>
+        <tr><td>前頭骨（おでこ）</td><td>眉毛・目の高さが左右でズレる・目が重たく見える</td></tr>
+        <tr><td>下顎骨（あご）</td><td>フェイスラインの崩れ・あごのズレ・噛み合わせのバランス</td></tr>
+      </tbody>
+    </table>
+    <img src="images/p6.png" alt="P6 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — PART A（骨格と悩みの因果を伝える）</div>
+    <div class="serif">
+      「こちらの図を見てください。お顔はいくつかの骨で構成されています。例えば、このこめかみの骨（側頭骨）がずれると、エラが張ったりこめかみが張ったりするんですよ。頬骨がずれると、ほうれい線や頬のたるみが出てきます。おでこの骨（前頭骨）がずれると、眉毛や目の高さが左右でズレてきます。つまり、お顔のお悩みは骨格の歪みから出てきているものがほとんどなんです。」
+    </div>
+  </div>
+</div>
+
+<!-- PART B -->
+<div class="card">
+  <h3>PART B｜先ほど撮った写真で実感させる</h3>
+  <ol class="numbered-flow">
+    <li>「では、先ほど撮った今の写真を見ていきましょう。」</li>
+    <li>「パッと見て、気になるところはありますか？」
+      <div class="note">何かしら答えてもらえるのを待つ。急がず反応を引き出す</div>
+    </li>
+    <li>「実は、ここの部分もよく見てみてください。眉毛の高さ、目の開き方、ほうれい線の出方…全体的に少し右（左）が下がっているんですよ。」</li>
+    <li>「○○さんの場合は、ここ（例：側頭骨・頬骨）の骨が歪んでいるので、やっぱりこういう悩みが出てきていますよね。さっきツールで見ていただいた通りで、骨格の歪みがそのままお悩みにつながっているんです。なんとなくイメージできましたか？」</li>
+  </ol>
+  <div class="tip">患者さんに「気になるところ」を先に言ってもらうことで、説明が「押しつけ」でなく「共感・確認」の形になる。これが納得感の核心。</div>
+</div>
+
+<!-- ==================== STEP 5 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">5</div>
+    悩みが出る理由・治療方針・ルール・今後の流れ・料金目安
+  </div>
+</div>
+
+<div class="step-ref">P8〜P16 を順番に使う ｜ 9鍵：①②⑥ 施術前に「なぜ・どうすれば」を納得させる</div>
+
+<!-- P8 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P8</span>
+    <h3>悩みの原因は生活習慣</h3>
+    <img src="images/p8.png" alt="P8 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P8</div>
+    <div class="serif">
+      「では、今なぜ歪みが出てきたかをお伝えしますね。」
+    </div>
+    <div class="note">📖 ツールを見せながら、画面の内容を読み上げる。</div>
+    <div class="serif">
+      「当てはまるものはありますか？」
+    </div>
+    <div class="tip">当てはまった項目をメモ。後の「癖をやめる」ルール説明のフックに使う。</div>
+  </div>
+</div>
+
+<!-- P9 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P9</span>
+    <h3>悩みが出る本当の理由（長年の癖）</h3>
+    <img src="images/p9.png" alt="P9 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P9</div>
+    <div class="note">📖 そのままツールに書いてある内容を読み上げる。</div>
+  </div>
+</div>
+
+<!-- P10 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P10</span>
+    <h3>定着とは？</h3>
+    <img src="images/p10.png" alt="P10 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P10</div>
+    <div class="note">📖 「定着とは」の内容をツール画面を見せながら読み上げる。</div>
+  </div>
+</div>
+
+<!-- P11 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P11</span>
+    <h3>ご来院ペース</h3>
+    <img src="images/p11.png" alt="P11 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P11</div>
+    <div class="note">📖 ツール画面の内容をそのまま読み上げる。</div>
+  </div>
+</div>
+
+<!-- P12 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P12</span>
+    <h3>お顔の歪みの改善法（独自施術）</h3>
+    <img src="images/p12.png" alt="P12 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P12</div>
+    <div class="serif">
+      「当院の治療は2つです。<br>
+      ① 小顔矯正（骨格矯正）：骨を直接動かして、歪みを整えます。<br>
+      ② フェイシャルマッサージ：筋肉を柔らかくして血流を促します。<br><br>
+      施術だけでなく、セルフケアもとても大切です。施術で整えた状態を日常の中で維持するためのホームケアを一緒にお伝えします。」
+    </div>
+  </div>
+</div>
+
+<!-- P13 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P13</span>
+    <h3>小顔のセルフケア（咬筋・側頭筋）</h3>
+    <img src="images/p13.png" alt="P13 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P13</div>
+    <div class="serif">
+      「ただ施術だけじゃなく、それ以外の時間でも維持するためにセルフケアが大切になります。今の悩みに合った簡単なところから始めていこうと思うので、難しかったら言ってください」
+    </div>
+    <div class="tip">ここでは「ある」とだけ伝えてOK。詳しい指導はSTEP10で行う。</div>
+  </div>
+</div>
+
+<!-- P14 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P14</span>
+    <h3>お悩みを改善するための5ルール</h3>
+    <img src="images/p14.png" alt="P14 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P14</div>
+    <div class="serif">
+      「改善のために、守っていただきたい5つのルールがあります。<br><br>
+      ルール① 小顔矯正が必要<br>
+      ルール② セルフケアが必要<br>
+      ルール③ 治療回数が重要<br>
+      ルール④ 治療ペースが重要<br>
+      ルール⑤ 再発防止（日常的に歪ませる癖をやめる）」
+    </div>
+    <div class="serif">
+      「最後に、この5つができると今の悩みが改善するのは大前提で、そこからその悩みを繰り返さないようにしたり、新しい悩みを生み出さないように予防までできると思っておいてください。」
+    </div>
+    <div class="note">新マニュアルでも5ルールに統一済み ✅</div>
+  </div>
+</div>
+
+<!-- P15 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P15</span>
+    <h3>ステップ①②③</h3>
+    <img src="images/p15.png" alt="P15 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P15</div>
+    <div class="serif">
+      「今後の流れは3ステップです。<br>
+      ① 改善期間（8〜12回）：まずお悩みを取っていく期間です。<br>
+      <strong>ここは一番再発のリスクが高い時期です。</strong><br>
+      ② 定着期間（2週間に1回ペース）：良くなった状態を体に覚えさせる期間です。この期間では、セルフケアを特によくお伝えしていきます。ここまでできると再発しない状態、定着ができるようになります。この期間ではセルフケアを特によくお伝えしていきますので、ここまでできると定着ができるようになっていると思っておいてください。<br>
+      ③ メンテナンス（月1回）：状態を維持して、再発を防ぐための期間です。<br>
+      ・自覚として出にくい歪みを検査する<br>
+      ・セルフケアで補い切れないところを一緒にケアする<br><br>
+      最初はペースを早めに設定し、状態が良くなっていくのに合わせて、どんどん間隔を空けていきます。」
+    </div>
+  </div>
+</div>
+
+<!-- P16 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P16</span>
+    <h3>料金目安・質問</h3>
+    <img src="images/p16.png" alt="P16 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P16</div>
+    <div class="serif">
+      「今日は体験料の〇〇円で変わりないのでご安心ください。次回からの料金の目安は5,500円から8,000円程度です。通いやすいように回数券もあるのですが、後で一緒にご案内させていただいても大丈夫ですか？」
+    </div>
+
+    <div class="serif">
+      「ここまで何か質問はありますか？では早速今から施術に入るので、今度は鏡を使って現状の確認をしていきます。では仰向けになってください。」
+    </div>
+
+    <div class="tip">ここで不安を解消しておくことで、施術後のクロージングがスムーズになる。質問受けが終わったらSTEP6（触診）→ STEP7（施術）へ移行。</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 6 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">6</div>
+    触診・現状を体感させる
+  </div>
+</div>
+
+<div class="step-ref">P7 を見せてから触診・体感確認へ ｜ 9鍵：④⑤ 「自分で確認」させる</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P7</span>
+    <h3>歪み検査・触診・体感</h3>
+    <img src="images/p7.png" alt="P7 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P7</div>
+    <ol class="numbered-flow">
+      <li>「では仰向けになっていただいて、実際に鏡を使って確認します。」</li>
+      <li>「頬の左右差を確認していきます。右と左で頬の高さや張り感が違うのわかりますか？」</li>
+      <li>「次にエラの部分を確認します。右と左でエラの張り具合が違うのわかりますか？」</li>
+      <li>「両手をフェイスラインにピタッと当ててみてください。今のサイズ感を覚えておいてください。施術後にまた同じようにやってもらうと、変化がよくわかります。」</li>
+      <li>「今度は頭のサイズも確認します。耳のてっぺんに手首を当てて、頭に手を添えた状態でどれくらい隙間があるかを検査します。」</li>
+    </ol>
+    <div class="tip">患者さん自身に「見て・触れて確認」させることが大切。左右差や頭のサイズを実感してもらえれば、施術後の変化が際立つ。</div>
+  </div>
+</div>
+
+<!-- ==================== STEP 7 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">7</div>
+    施術（首 → 頭蓋骨 → 骨格矯正の順）
+  </div>
+</div>
+
+<div class="step-ref">ツールなし ｜ 9鍵：③情熱・④メンタル</div>
+
+<div class="card">
+  <ol class="numbered-flow">
+    <li>
+      <strong>施術前説明</strong><br>
+      <div class="serif">「筋肉を柔らかくするために一番大切なのは血を流すことです。顔への血流は必ず首を通るので、まず首から緩めます。その後、頭の骨 → 顔の骨格の順で整えていきます。部位によって痛みが出ることがあります。つらい時はすぐ言ってください。」</div>
+    </li>
+    <li>
+      <strong>首ほぐし後 体感確認</strong><br>
+      <div class="serif">「もう一回同じところを触ってみてもらっていいですか？さっきと比べて柔らかくなっているのわかりますか？まだ顔には直接触れていないのに、顔まわりも少し柔らかくなっているはずです。それだけ首の硬さが顔に影響しているんですよ。」</div>
+    </li>
+    <li>
+      <strong>頭の矯正</strong><br>
+      <div class="serif">「では骨格を直接動かしていきます。まず頭から始めます。（施術中）動いている感じはわかりますか？これが骨格が直接動いている感覚です。硬い部位は痛みが出やすいです。無理しなくていいので遠慮なく言ってください。」</div>
+    </li>
+    <li>
+      <strong>頭の矯正後 ビフォーアフター確認</strong><br>
+      <div class="serif">「頭の矯正が終わりました。さっきと比べて、頭のサイズ感や頬の高さが変わっているのわかりますか？」</div>
+    </li>
+    <li>
+      <strong>頬骨の矯正</strong><br>
+      <div class="serif">「次は頬骨の矯正をしていきます。頬骨を整えることで、ほうれい線・たるみ・顔の左右差が改善していきます。」</div>
+    </li>
+    <li>
+      <strong>頬骨矯正後 ビフォーアフター確認</strong><br>
+      <div class="serif">「頬骨の矯正が終わりました。右と左で頬の高さや張り感、変化しているのわかりますか？」</div>
+    </li>
+  </ol>
+  <div class="tip"><strong>ポイント：細かくビフォーアフター確認を入れる</strong><br>
+    施術の各工程ごとに「さっきと比べてどうですか？」と確認を挟む。患者さん自身に変化を実感してもらうことで納得感と信頼感が高まる。</div>
+
+  <div class="warn">骨格矯正は最初は痛みが出ることがある。「通うほど痛くなくなります」と伝えて継続動機につなげること。</div>
+</div>
+
+<!-- 圧痛の確認 -->
+<div class="card">
+  <h3>施術中の圧痛確認（マッサージ中の痛みの説明）</h3>
+  <div class="serif">
+    「今、僕がマックス10の強さで押せるとしたら、現在押している強さは2ぐらいです。なぜかと言うと、筋肉は硬ければ硬いほど押された時に痛みを感じますが、逆に柔らかくなれば痛みはほとんど感じなくなります。そのため、理想は『7割ぐらいの強さで押しても痛くない状態』です。」
+  </div>
+  <div class="tip">圧痛の説明をすることで、患者さんが「痛い＝悪い状態」と理解でき、改善のモチベーションにつながる。また、施術が進むにつれて痛みが減ることを先に伝えておくことで継続動機になる。</div>
+</div>
+
+<!-- 施術中のプライベート深掘り -->
+<div class="card">
+  <h3>施術中の会話：プライベートの深掘り（通院スケジュールの把握）</h3>
+  <div class="tip"><strong>目的：</strong>患者さんのプライベートを自然な流れで深掘りする。後の段階で仕事やプライベートを理由にお断りされないよう、今のうちから通いやすいタイミングを引き出しておく。</div>
+
+  <div class="q-item">
+    <div class="q-label">1. 仕事の時間について</div>
+    <div class="serif">「お仕事は何時から始まるんですか？」</div>
+    <div class="serif">「何時から何時までお仕事をされているんですか？」</div>
+  </div>
+
+  <div class="q-item">
+    <div class="q-label">2. お休みのタイミングについて</div>
+    <div class="serif">「お休みは土日なんですか？」</div>
+    <div class="serif">「今日は仕事終わりに来てくださったんですか？ それともお休みだから来ていただけたんですか？」</div>
+  </div>
+
+  <div class="note">これらを施術中の会話の中で自然に聞き出し、通院可能なスケジュールをあらかじめ把握しておく。</div>
+</div>
+
+<!-- ==================== STEP 8 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">8</div>
+    アフター写真・ビフォーアフター比較
+  </div>
+</div>
+
+<div class="step-ref">P17 → 変化を言語化 → 3ステップ再確認 → 次回予約 ｜ 9鍵：①③</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P17</span>
+    <h3>治療後の確認（after検査）</h3>
+    <img src="images/p17.png" alt="P17 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P17</div>
+    <ol class="numbered-flow">
+      <li>「では写真を撮ってビフォーアフターを比べてみましょう。こちらにお座りいただいて、髪の毛を後ろにしてください。」</li>
+      <li>「ビフォーとアフターを見比べてみてください。どこが一番変わって見えますか？」
+        <div class="note">こちらから先に言わず、患者さんの言葉を引き出してから補足する</div>
+      </li>
+      <li>「実際に受けてみて、率直な感想を聞かせてもらえますか？」
+        <div class="note">患者さんから「どうなりたい」「良くなった」などの感想が出たら、以下を聞く</div>
+      </li>
+      <li>「じゃあ、それはどれくらい続いたら嬉しいですか？」
+        <div class="tip">定着の必要性をここで布石として打つ。後のステップ説明・プラン提案につなげる。</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P15</span>
+    <h3>ステップ①②③（再掲）</h3>
+    <img src="images/p15.png" alt="P15 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — 今後の3ステップを改めて説明し、ゴールを確認する</div>
+  <ol class="numbered-flow" start="4">
+    <li>
+      <div class="serif">
+        「すでに一度ご説明していますが、改めて今後の3ステップについてお伝えしますね。<br>
+        ステップ1：改善期間 まずお悩みを取っていく期間です。<br>
+        ステップ2：定着期間 良くなった状態を体に覚えさせる期間です。<br>
+        ステップ3：メンテナンス 状態を維持して、再発を防ぐ期間です。<br><br>
+        ○○さんは、どこまで目指したいですか？」
+      </div>
+      <div class="note">患者さんがどのステップを選んでも「それ、めちゃくちゃいいですね。大事なポイントです」と必ず肯定する</div>
+    </li>
+    <li>
+      <strong>最初が一番大事であることを伝える</strong><br>
+      <div class="serif">「共通して言えるのは、そこまで持っていくには結局最初が一番大事です。ステップ1が鍵になります。」</div>
+    </li>
+    <li>
+      <strong>具体的な頻度を提案し、すり合わせる</strong><br>
+      <div class="serif">「理想は3日から7日に1回なのですが、○○さんはどれくらい頑張れそうですか？」<br>（相手の回答に合わせて）<br>「では、まずはそのペースで頑張っていきましょう！」</div>
+    </li>
+    <li>
+      <strong>その場で次回予約の日程を確定させる</strong><br>
+      <div class="serif">「今日は○日なので、週1回で来られる場合、1週間後の○日までに診られるのがベストですが、このあたりで来られそうな日はありますか？」<br>（来られる日を確認して確定させる）<br>「あとは最後に受付で空いている時間を一緒に確認しますね。」</div>
+      <div class="note">この場で日程の目安を確定させることで、来院率が大幅に上がる</div>
+    </li>
+  </ol>
+  </div>
+</div>
+
+<!-- ==================== STEP 9 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">9</div>
+    今後の流れ・料金・プラン提案
+  </div>
+</div>
+
+<div class="step-ref">P18〜P24 を順番に使う ｜ 9鍵：①⑥⑦ 継続動機を作るステップ</div>
+
+<!-- P19 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P19</span>
+    <h3>治療の料金表（管理費・自費治療）</h3>
+    <table>
+      <thead><tr><th>項目</th><th>金額</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>管理費（初回）</td><td>¥1,500</td><td>現金のみ</td></tr>
+        <tr><td>管理費（2回目〜）</td><td>¥800</td><td>現金のみ・毎回</td></tr>
+        <tr><td>治療費（通常）</td><td>¥8,250</td><td></td></tr>
+      </tbody>
+    </table>
+    <img src="images/p19.png" alt="P19 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P19</div>
+    <div class="serif">
+      「まず、必ずかかる料金が2つあります。<br>
+      1つ目が管理費です。これはいわゆる材料費です。初回が1,500円、2回目以降は毎回800円です。管理費は現金のみとなってます。<br>
+      2つ目が治療費です。通常の治療費は8,250円です。」
+    </div>
+  </div>
+</div>
+
+<!-- P20 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P20</span>
+    <h3>回数券（10回・20回）通常価格</h3>
+    <table>
+      <thead><tr><th>回数券</th><th>通常価格</th><th>1回あたり</th></tr></thead>
+      <tbody>
+        <tr><td>10回券</td><td>¥80,000</td><td>¥8,000/回</td></tr>
+        <tr><td>20回券</td><td>¥150,000</td><td>¥7,500/回</td></tr>
+      </tbody>
+    </table>
+    <img src="images/p20.png" alt="P20 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P20</div>
+    <div class="serif">
+      「通いやすいように回数券もご用意しています。<br>
+      10回券：通常 ¥80,000（1回あたり ¥8,000）<br>
+      20回券：通常 ¥150,000（1回あたり ¥7,500）」
+    </div>
+  </div>
+</div>
+
+<!-- P21 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P21</span>
+    <h3>「通常はこの価格なんですが」</h3>
+    <img src="images/p21.png" alt="P21 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P21</div>
+    <div class="serif">
+      「通常はこの価格なんですが、これでも手に入る価値からしたらとてもお得な金額なんです。さらに…」
+    </div>
+    <div class="tip">P21はモニター価格への橋渡しスライド。テンポよくP22へ。</div>
+  </div>
+</div>
+
+<!-- P22 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P22</span>
+    <h3>モニター価格</h3>
+    <table>
+      <thead><tr><th>回数券</th><th>通常価格</th><th>モニター価格</th><th>1回あたり</th></tr></thead>
+      <tbody>
+        <tr><td>10回券</td><td>¥80,000</td><td>¥66,000</td><td>¥6,600/回</td></tr>
+        <tr><td>20回券</td><td>¥150,000</td><td>¥110,000</td><td>¥5,500/回</td></tr>
+      </tbody>
+    </table>
+    <img src="images/p22.png" alt="P22 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P22</div>
+    <div class="serif">
+      「初回限定でモニターというコースがあります。治療内容は一緒なんですが、お願いがあります。それはビフォーアフターの写真を使わせていただいたり、アンケートのご協力をお願いしたいです。写真はどこか隠したい部分があれば、おっしゃっていただければ対応させていただきます。<br><br>
+      これらにご協力いただける場合は、今日限定でこの特別価格でご案内させていただきます。<br>
+      10回券：¥66,000（1回あたり ¥6,600）<br>
+      20回券：¥110,000（1回あたり ¥5,500）<br>
+      で受けていただけます。」
+    </div>
+    <div class="serif">
+      「どれが一番始めやすそうですか？」（沈黙OK。答えを急かさず待つ）
+    </div>
+    <div class="serif">
+      「何で悩んでいますか？」
+    </div>
+    <div class="note">「料金が…」「回数が…」など把握してから対応する</div>
+  </div>
+</div>
+
+<!-- P24 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P24</span>
+    <h3>分割払い</h3>
+    <img src="images/p24.png" alt="P24 ツール画面" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — P24</div>
+    <div class="serif">
+      「分割払いもできますよ。月いくらぐらいであれば続けやすいですか？<br><br>
+      例えば月2回ペースにすると、20回モニターで月1万円ほどで続けられます。<br><br>
+      無理のないペースで一緒に進めていけたらと思っています。」
+    </div>
+    <div class="tip">月ベースで話すと金額のイメージがつきやすい。</div>
+  </div>
+</div>
+
+<!-- コース確定後 -->
+<div class="card">
+  <h3>ツールなし — コース確定後の声かけ</h3>
+  <div class="serif">
+    「わかりました。じゃあ、○○さんのそのゴールを目指して、今日から一緒に頑張っていきましょう！」
+  </div>
+  <div class="note">回数券（コース）が確定したタイミングで、必ずこの一言を伝える。「どれが一番始めやすそうですか？」と問いかけて沈黙を恐れない。悩みが出てきてからそれに合わせた対応をすることで、押し売り感がなくなる。</div>
+</div>
+
+<!-- ==================== STEP 10 ==================== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">10</div>
+    キャンセルポリシー・LINE流入経路確認
+  </div>
+</div>
+
+<div class="step-ref">キャンセルポリシーを画像で見せながら伝える → LINE流入経路を確認</div>
+
+<!-- キャンセルポリシー -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P25</span>
+    <h3>キャンセルポリシー</h3>
+    <img src="images/p25.png" alt="P25 キャンセルポリシー" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — キャンセルポリシー</div>
+    <div class="note">📖 画像を見せながら、以下のポイントをピックアップして伝える。</div>
+
+    <div class="q-item">
+      <div class="q-label">1. 予約の変更・キャンセルについて</div>
+      <div class="serif">
+        「予約の変更・キャンセルは、前日の20時までにLINEにてご連絡をお願いします。」
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">2. キャンセル料の発生条件</div>
+      <div class="serif">
+        「同月内で当日キャンセルが2回以上あった場合は、治療1回分のキャンセル料をいただきます。」
+      </div>
+      <div class="serif">
+        「ただし、電車の運転見合わせ等の遅延があり、遅延証を持参いただいた場合はキャンセル料は発生しません。」
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-label">3. 再検料について</div>
+      <div class="serif">
+        「最終来院月より2ヶ月以上空いた場合は、再検査が必要になります。その際、管理費として1,500円が再度かかりますので、あらかじめご了承ください。」
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LINE流入経路確認 -->
+<div class="two-col">
+  <div class="col-tool">
+    <div class="col-label">ツール</div>
+    <span class="page-tag">P26〜31</span>
+    <h3>来院経路確認</h3>
+    <img src="images/p26.png" alt="P26 来院経路確認" class="tool-img">
+    <img src="images/p27.png" alt="P27 来院経路確認" class="tool-img">
+    <img src="images/p28.png" alt="P28 来院経路確認" class="tool-img">
+    <img src="images/p29.png" alt="P29 来院経路確認" class="tool-img">
+    <img src="images/p30.png" alt="P30 来院経路確認" class="tool-img">
+    <img src="images/p31.png" alt="P31 来院経路確認" class="tool-img">
+  </div>
+  <div class="col-script">
+    <div class="col-label">スクリプト — LINE流入経路確認</div>
+    <div class="note">📖 添付資料を見せながら、どの経路で来院されたのかを確認する。</div>
+    <div class="serif">
+      「ちなみに、当院のことはどちらでお知りになりましたか？こちらの中で当てはまるものはありますか？」
+    </div>
+    <div class="tip">マーケティングデータとして重要。来院経路を正確に把握することで、今後の集客施策に活かす。</div>
+  </div>
+</div>
+
+<!-- ==================== 運用ポイント ==================== -->
+<hr>
+
+<div class="card" style="border-top: 3px solid var(--accent);">
+  <h3>📋 運用上のポイント</h3>
+
+  <div class="tip">
+    <strong>リピート率を上げるコツ：</strong>「次回、セルフケアどうだったか教えてください」と言うと来院動機が生まれる。宿題の報告を次回来院のフックにする。
+  </div>
+
+  <div class="tip">
+    <strong>タイプを感じたら対応を微調整：</strong><br>
+    根拠を聞いてくる → 理由を丁寧に説明<br>
+    期間を気にする → 早めに段取りを伝える<br>
+    盛り上がる → 一緒に変化を楽しむ<br>
+    話したがる → まず気持ちを受け止める
+  </div>
+
+  <div class="warn">
+    <strong>STEP4の核心：</strong>「ツールで骨格→悩みの因果を先に見せる」→「写真を見せる」→「患者に気になるところを言わせる」の順が重要。順番を守ること。
+  </div>
+
+  <div class="note">
+    <strong>9鍵の優先順位：</strong>①目的（どうなりたいか）→ ②意図（なぜ今来たか）→ ③情熱（本気度）の順で確認できると後の提案が刺さりやすい。
+  </div>
+
+  <p style="margin-top:12px; font-size:0.85rem; color:var(--text-light);">
+    ※ P23「さらに...」は演出スライド。P26〜31は来院経路確認（STEP10のP25キャンセルポリシーの後に配置）。
+  </p>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+  ✨ 美容 AILE SHIGA ｜ 小顔矯正ツール × 新規問診マニュアル 対照ガイド<br>
+  ※ スタッフ内部資料
+</div>
+
+</div><!-- /container -->
+    </div>
+  </div>
+</div>
+<!-- ============================================ -->
+<!-- TAB 3: 電話対応 -->
+<!-- ============================================ -->
+<div class="tab-content" id="tab-denwa">
+  <div class="container">
+
+    <section class="overview">
+      <h2>電話対応マニュアル</h2>
+      <p style="font-size:14px; color:var(--text-light);">シーン別の対応スクリプトと注意点をまとめています。</p>
+      <div class="highlight blue">
+        <strong>電話対応の基本3原則：</strong><br>
+        1. 3コール以内に出る<br>
+        2. サロン名 + 自分の名前を名乗る<br>
+        3. メモを取りながら対応する
+      </div>
+    </section>
+
+    <!-- シーン1: 新規予約 -->
+    <div class="phone-scenario ps1">
+      <div class="phone-scenario-header">
+        <span>📞</span> シーン1：新規予約の電話
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block">
+          <div class="label">スタッフ ― 応答</div>
+          <p>「お電話ありがとうございます。美容AILE SHIGA、○○でございます。」</p>
+        </div>
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「初めてなんですが、小顔矯正の予約をしたいのですが...」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― ヒアリング</div>
+          <p>「ありがとうございます。小顔矯正にご興味をお持ちいただき嬉しいです。<br>
+          いくつかお伺いしてもよろしいでしょうか？」</p>
+        </div>
+        <div class="section-title">確認項目</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> お名前（フルネーム・読み仮名）</h4>
+          <p>「お名前をフルネームで教えていただけますか？」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 連絡先（電話番号）</h4>
+          <p>「ご連絡先のお電話番号をお願いいたします。」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 気になる箇所</h4>
+          <p>「お顔のどのあたりが一番気になりますか？簡単にで結構です。」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> ご希望日時</h4>
+          <p>「ご希望のお日にちとお時間はございますか？」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 来店方法の確認</h4>
+          <p>「当サロンの場所はご存知ですか？最寄り駅からのアクセスをご案内しましょうか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― クロージング</div>
+          <p>「それでは、○月○日○時でご予約をお取りいたしました。<br>
+          初回は特別価格の¥1,500で、約60分の施術を体験していただけます。<br>
+          当日はお化粧を落としていただきますので、メイク直しの道具をお持ちいただくと安心です。<br>
+          ご来店お待ちしております。」</p>
+        </div>
+        <div class="highlight green">
+          <strong>ポイント：</strong>初回体験¥1,500を必ず伝え、メイク関連の案内も添えて安心感を与えましょう。
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン2: 予約変更 -->
+    <div class="phone-scenario ps2">
+      <div class="phone-scenario-header">
+        <span>📅</span> シーン2：予約変更・キャンセル
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block">
+          <div class="label">スタッフ ― 応答</div>
+          <p>「お電話ありがとうございます。美容AILE SHIGA、○○でございます。」</p>
+        </div>
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「予約を変更（キャンセル）したいのですが...」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 対応</div>
+          <p>「承知いたしました。お名前とご予約日時を教えていただけますか？」</p>
+        </div>
+        <div class="section-title">対応手順</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 予約情報の確認</h4>
+          <p>お名前・予約日時を照合し、予約を特定する。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 変更 or キャンセルの確認</h4>
+          <p>日程変更 → 新しい希望日時をヒアリング。<br>キャンセル → 理由を伺い、可能なら別日を提案。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 振替提案（キャンセルの場合）</h4>
+          <p>「もしよろしければ、別のお日にちへの振替も可能ですがいかがでしょうか？<br>
+          次回まで間隔が空くと施術効果が薄れてしまうので、なるべく近いお日にちがおすすめです。」</p>
+        </div>
+        <div class="highlight">
+          <strong>注意：</strong>無断キャンセルが続く場合は、店長へ報告してください。
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン3: 料金・メニュー問い合わせ -->
+    <div class="phone-scenario ps3">
+      <div class="phone-scenario-header">
+        <span>💰</span> シーン3：料金・メニューの問い合わせ
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「小顔矯正の料金を教えてもらえますか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 回答</div>
+          <p>「ご質問ありがとうございます。<br>
+          初回は特別価格の¥1,500で、約60分の施術を体験していただけます。<br>
+          お客様のお悩みやご希望に合わせて、最適なプランをご来店時にご提案しております。<br>
+          まずは初回体験にいらしてみませんか？」</p>
+        </div>
+        <div class="highlight">
+          <strong>ポイント：</strong>電話では詳細な回数券価格は伝えず、初回体験¥1,500で来店を促しましょう。対面で施術の効果を実感していただいてからの方が成約率が上がります。
+        </div>
+        <div class="section-title">聞かれた場合の参考料金</div>
+        <table class="price-table">
+          <thead><tr><th>プラン</th><th>料金</th></tr></thead>
+          <tbody>
+            <tr><td>初回体験</td><td class="price">¥1,500</td></tr>
+            <tr><td>2回目</td><td class="price">¥800</td></tr>
+            <tr><td>10回プラン</td><td class="price">¥66,000（¥6,600/回）</td></tr>
+            <tr><td>20回プラン</td><td class="price">¥110,000（¥5,500/回）</td></tr>
+          </tbody>
+        </table>
+        <div class="script-block customer">
+          <div class="label">お客様（よくある質問）</div>
+          <p>「痛くないですか？」「施術時間はどれくらいですか？」「メイクしたままで大丈夫ですか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 回答例</div>
+          <p>「痛みの少ない優しい施術ですのでご安心ください。施術は約60分です。<br>
+          施術前にお化粧を落としていただきますので、メイク直しの道具をご持参いただくと安心です。」</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン4: 施術内容の質問 -->
+    <div class="phone-scenario ps4">
+      <div class="phone-scenario-header">
+        <span>💆</span> シーン4：施術内容の質問
+      </div>
+      <div class="phone-scenario-body">
+        <div class="script-block customer">
+          <div class="label">お客様</div>
+          <p>「小顔矯正ってどんなことをするんですか？」「エラの張りに効きますか？」</p>
+        </div>
+        <div class="script-block">
+          <div class="label">スタッフ ― 回答</div>
+          <p>「お問い合わせいただきありがとうございます。<br>
+          当サロンの小顔矯正は、専用ツールを使ってお顔の骨格や筋肉にアプローチし、<br>
+          フェイスラインを整えていく施術です。<br>
+          エラの張りやむくみ、左右差など、多くのお客様にご満足いただいております。<br>
+          初回で変化を実感される方も多いので、ぜひ一度体験されてみてください。」</p>
+        </div>
+        <div class="highlight red">
+          <strong>注意事項：</strong><br>
+          ・「必ず小さくなります」「絶対効果があります」等の断言はNG<br>
+          ・医療行為と誤解される表現は避ける<br>
+          ・「多くのお客様に喜ばれています」「変化を実感される方が多いです」等を使う<br>
+          ・判断に迷う質問は「詳しくはご来店時にご説明いたします」と案内する
+        </div>
+      </div>
+    </div>
+
+    <!-- シーン5: クレーム -->
+    <div class="phone-scenario ps5">
+      <div class="phone-scenario-header">
+        <span>⚠️</span> シーン5：クレーム・ご不満
+      </div>
+      <div class="phone-scenario-body">
+        <div class="section-title">クレーム対応の基本ステップ</div>
+        <div class="sub-step">
+          <h4><span class="num">1</span> まず傾聴する</h4>
+          <p>お客様の話を最後まで聞き、途中で遮らない。「おっしゃる通りです」「ご不快な思いをさせてしまい申し訳ございません」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 事実確認</h4>
+          <p>日時・担当者・施術内容を正確にメモする。復唱して確認する。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 謝罪と対応策の提示</h4>
+          <p>「大変申し訳ございません。すぐに担当者（店長）に確認し、ご連絡させていただきます。」</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">4</span> 店長へエスカレーション</h4>
+          <p>内容をすべてメモし、速やかに店長へ報告する。</p>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">5</span> 折り返し連絡</h4>
+          <p>約束した時間内に必ず折り返す。対応策を明確に伝える。</p>
+        </div>
+        <div class="highlight red">
+          <strong>絶対にやってはいけないこと：</strong><br>
+          ・お客様と口論する<br>
+          ・「でも」「ですが」で反論する<br>
+          ・たらい回しにする<br>
+          ・その場で勝手に判断して約束する（返金・無料施術等）<br>
+          ・「肌質の問題」「個人差」で片付ける
+        </div>
+      </div>
+    </div>
+
+    <!-- 電話メモテンプレート -->
+    <section class="step-section s2">
+      <div class="step-header">
+        <div class="step-num">📝</div>
+        <div class="step-info">
+          <h3>電話メモテンプレート</h3>
+          <p>電話対応時に必ず記録する項目</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4>記録必須項目</h4>
+          <ul>
+            <li><strong>受電日時：</strong>○月○日 ○時○分</li>
+            <li><strong>対応者：</strong>自分の名前</li>
+            <li><strong>お客様名：</strong>フルネーム（読み仮名）</li>
+            <li><strong>電話番号：</strong>折り返し先</li>
+            <li><strong>用件：</strong>新規予約 / 変更 / キャンセル / 問い合わせ / その他</li>
+            <li><strong>詳細内容：</strong>聞いた内容をメモ</li>
+            <li><strong>対応結果：</strong>予約確定 / 折り返し予定 / 店長へ引継ぎ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="footer">
+  AILE SHIGA ― 美容部門マニュアル<br>
+  このページはローカル環境で動作しています。外部通信は行いません。
+</div>
+
+<script>
+// Auth guard
+(async()=>{const H='948c710e16a15027a561598d053fdf1e910b9d222cab0ac0d09f23a01cc8416b';const s=sessionStorage.getItem('auth');if(s!==H){window.location.href='../index.html';return;}})();
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  const tabs = document.querySelectorAll('.main-tab');
+  const map = { shinki: 0, kyouiku: 1, denwa: 2 };
+  tabs[map[tabId]].classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+function scrollToEl(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return false;
+}
+</script>
+</body>
+</html>

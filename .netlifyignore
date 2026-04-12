@@ -1,0 +1,5 @@
+*.pdf
+embed_manual.js
+extract_pages.js
+insert_images.js
+update_kyouiku.js
