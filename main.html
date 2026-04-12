@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>店舗マニュアル管理</title>
+<script>if(localStorage.getItem('store_auth')!=='ok'){window.location.replace('index.html');}</script>
 <style>
   :root {
     --primary: #1a73e8;
@@ -660,8 +661,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// Auth guard
-if(localStorage.getItem('store_auth')!=='ok'){window.location.replace('index.html');}
+// Auth guard is in <head>
 
 const STORAGE_KEY = 'store_manual_data';
 
