@@ -1601,202 +1601,274 @@
 
     <section class="overview">
       <h2>電話対応マニュアル</h2>
-      <p style="font-size:14px; color:var(--text-light);">シーン別の対応スクリプトと注意点をまとめています。</p>
-      <div class="highlight blue">
-        <strong>電話対応の基本3原則：</strong><br>
-        1. 3コール以内に出る<br>
-        2. 院名 + 自分の名前を名乗る<br>
-        3. メモを取りながら対応する
+      <p style="font-size:14px; color:var(--text-light);">PHONE RESPONSE MANUAL ― 全9ステップ｜所要時間 約5〜10分</p>
+      <div class="flow-diagram">
+        <div class="flow-step">STEP1<br>挨拶</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP2<br>予約確認</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP3<br>症状</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP4<br>日時</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP5<br>料金</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP6<br>アクセス</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP7<br>確認</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP8<br>予約確定</div><span class="flow-arrow">→</span>
+        <div class="flow-step">STEP9<br>お見送り</div>
       </div>
     </section>
 
-    <!-- シーン1: 新規予約 -->
+    <!-- STEP 1 -->
+    <section class="step-section s1">
+      <div class="step-header">
+        <div class="step-num">01</div>
+        <div class="step-info">
+          <h3>STEP1 電話応対・挨拶</h3>
+          <p>第一声が印象を決める</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">A</span> 挨拶</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「お電話ありがとうございます。整体AILE SHIGA、○○でございます。」</p>
+          </div>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">B</span> お名前の確認（約5秒）</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「恐れ入りますが、お名前をお伺いしてもよろしいでしょうか？」</p>
+          </div>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">C</span> ご用件の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「○○様、ありがとうございます。本日はどのようなご用件でしょうか？」</p>
+          </div>
+          <div class="highlight">
+            <strong>ポイント：</strong>用件に応じてSTEP2以降の流れが変わります。<br>
+            ・新規予約 → STEP2へ<br>
+            ・変更/キャンセル → STEP2へ<br>
+            ・問い合わせ → 内容に応じて対応
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section s2">
+      <div class="step-header">
+        <div class="step-num">02</div>
+        <div class="step-info">
+          <h3>STEP2 予約状況の確認</h3>
+          <p>約1〜2分</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> 新規 or 既存の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「当院は初めてでいらっしゃいますか？」</p>
+          </div>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 予約状況の確認</h4>
+          <p>予約表を確認し、空き状況をお伝えします。OK → 1〜2分で確認完了。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section s3">
+      <div class="step-header">
+        <div class="step-num">03</div>
+        <div class="step-info">
+          <h3>STEP3 症状のヒアリング</h3>
+          <p>お悩みを簡潔に把握</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> 症状の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「差し支えなければ、現在お悩みの症状を教えていただけますか？」</p>
+          </div>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 部位の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「どのあたりが一番おつらいですか？」</p>
+          </div>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">3</span> 期間の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「いつ頃からその症状がありますか？」</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section s4">
+      <div class="step-header">
+        <div class="step-num">04</div>
+        <div class="step-info">
+          <h3>STEP4 ご希望日時の確認</h3>
+          <p>予約日時の調整</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> 希望日時のヒアリング</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「ご希望のお日にちとお時間帯はございますか？」</p>
+          </div>
+        </div>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 空き状況の案内</h4>
+          <p>予約表を確認し、空き状況をお伝えします。希望日時が空いていない場合は、近い日時の候補を2〜3個ご案内します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section s5">
+      <div class="step-header">
+        <div class="step-num">05</div>
+        <div class="step-info">
+          <h3>STEP5 料金のご案内</h3>
+          <p>初回料金を明確に伝える</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="sub-step">
+          <h4><span class="num">1</span> 初回料金の案内</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「初回は特別価格で、施術料¥1,500でご案内しております。お時間は約60分ほどいただきます。」</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <strong>ポイント：</strong>電話では詳細な回数券の料金説明は避け、初回体験¥1,500で来院を促しましょう。詳しい料金はご来院時にご説明します。
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 6 -->
     <div class="phone-scenario ps1">
       <div class="phone-scenario-header">
-        <span>📞</span> シーン1：新規予約の電話
+        <span>📍</span> STEP6 アクセスのご案内（約1分）
       </div>
       <div class="phone-scenario-body">
-        <div class="script-block">
-          <div class="label">スタッフ ― 応答</div>
-          <p>「お電話ありがとうございます。整体AILE SHIGA、○○でございます。」</p>
-        </div>
-        <div class="script-block customer">
-          <div class="label">お客様</div>
-          <p>「初めてなんですが、予約したいんですけど...」</p>
-        </div>
-        <div class="script-block">
-          <div class="label">スタッフ ― ヒアリング</div>
-          <p>「ありがとうございます。初めてのご来院ですね。お電話いただきありがとうございます。<br>
-          いくつかお伺いしてもよろしいでしょうか？」</p>
-        </div>
-        <div class="section-title">確認項目</div>
         <div class="sub-step">
-          <h4><span class="num">1</span> お名前（フルネーム・読み仮名）</h4>
-          <p>「お名前をフルネームで教えていただけますか？」</p>
+          <h4><span class="num">1</span> 来院方法の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「当院の場所はご存知ですか？」</p>
+          </div>
         </div>
         <div class="sub-step">
-          <h4><span class="num">2</span> 連絡先（電話番号）</h4>
-          <p>「ご連絡先のお電話番号をお願いいたします。」</p>
-        </div>
-        <div class="sub-step">
-          <h4><span class="num">3</span> 症状・お悩み</h4>
-          <p>「どのような症状でお悩みですか？簡単にで結構です。」</p>
-        </div>
-        <div class="sub-step">
-          <h4><span class="num">4</span> ご希望日時</h4>
-          <p>「ご希望のお日にちとお時間はございますか？」</p>
-        </div>
-        <div class="sub-step">
-          <h4><span class="num">5</span> 来院方法の確認</h4>
-          <p>「当院の場所はご存知ですか？最寄り駅からのアクセスをご案内しましょうか？」</p>
-        </div>
-        <div class="script-block">
-          <div class="label">スタッフ ― クロージング</div>
-          <p>「それでは、○月○日○時でご予約をお取りいたしました。<br>
-          当日は初回ということで約60分ほどお時間をいただきます。<br>
-          初回料金は¥1,500でございます。<br>
-          ご来院お待ちしております。」</p>
-        </div>
-        <div class="highlight green">
-          <strong>ポイント：</strong>初回体験¥1,500であることを必ず伝え、来院のハードルを下げましょう。
+          <h4><span class="num">2</span> アクセス案内</h4>
+          <p>最寄り駅からの道順、駐車場の有無などをご案内します。</p>
+          <div class="highlight">
+            <strong>案内ポイント：</strong><br>
+            ・最寄り駅からの所要時間<br>
+            ・目印となる建物<br>
+            ・駐車場の場所と台数
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- シーン2: 予約変更 -->
+    <!-- STEP 7 -->
     <div class="phone-scenario ps2">
       <div class="phone-scenario-header">
-        <span>📅</span> シーン2：予約変更・キャンセル
+        <span>✅</span> STEP7 確認事項（約2分）
       </div>
       <div class="phone-scenario-body">
-        <div class="script-block">
-          <div class="label">スタッフ ― 応答</div>
-          <p>「お電話ありがとうございます。整体AILE SHIGA、○○でございます。」</p>
-        </div>
-        <div class="script-block customer">
-          <div class="label">お客様</div>
-          <p>「予約を変更（キャンセル）したいのですが...」</p>
-        </div>
-        <div class="script-block">
-          <div class="label">スタッフ ― 対応</div>
-          <p>「承知いたしました。お名前とご予約日時を教えていただけますか？」</p>
-        </div>
-        <div class="section-title">対応手順</div>
         <div class="sub-step">
-          <h4><span class="num">1</span> 予約情報の確認</h4>
-          <p>お名前・予約日時を照合し、予約を特定する。</p>
+          <h4><span class="num">1</span> 持ち物・服装の案内</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「動きやすい服装でお越しください。着替えもご用意しておりますのでご安心ください。」</p>
+          </div>
         </div>
         <div class="sub-step">
-          <h4><span class="num">2</span> 変更 or キャンセルの確認</h4>
-          <p>日程変更の場合 → 新しい希望日時をヒアリング。<br>キャンセルの場合 → 理由を伺い、可能なら別日を提案。</p>
+          <h4><span class="num">2</span> 注意事項の案内</h4>
+          <p>当日の注意事項（時間厳守、キャンセルポリシー等）をお伝えします。</p>
         </div>
         <div class="sub-step">
-          <h4><span class="num">3</span> 振替提案（キャンセルの場合）</h4>
-          <p>「もしよろしければ、別のお日にちへの振替も可能ですがいかがでしょうか？」</p>
+          <h4><span class="num">3</span> 連絡先の確認</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「念のため、ご連絡先のお電話番号を教えていただけますか？」</p>
+          </div>
         </div>
-        <div class="highlight">
-          <strong>注意：</strong>無断キャンセルが続く場合は、院長へ報告してください。
+        <div class="highlight blue">
+          <strong>STEP9で使う情報を確認：</strong>お名前・電話番号・予約日時・症状をメモに残す。
         </div>
       </div>
     </div>
 
-    <!-- シーン3: 料金問い合わせ -->
+    <!-- STEP 8 -->
     <div class="phone-scenario ps3">
       <div class="phone-scenario-header">
-        <span>💰</span> シーン3：料金の問い合わせ
+        <span>📅</span> STEP8 予約確定（約10分以内に完了）
       </div>
       <div class="phone-scenario-body">
-        <div class="script-block customer">
-          <div class="label">お客様</div>
-          <p>「料金はいくらですか？」</p>
+        <div class="sub-step">
+          <h4><span class="num">1</span> 予約内容の復唱</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「それでは確認させていただきます。<br>
+            ○○様、○月○日○曜日、○時からのご予約でよろしいでしょうか？」</p>
+          </div>
         </div>
-        <div class="script-block">
-          <div class="label">スタッフ ― 回答</div>
-          <p>「ご質問ありがとうございます。<br>
-          初回は特別価格の¥1,500で、約60分の施術を体験していただけます。<br>
-          2回目以降の詳しい料金はご来院時にご案内しております。<br>
-          まずは初回体験にいらしてみませんか？」</p>
+        <div class="sub-step">
+          <h4><span class="num">2</span> 予約表への記入</h4>
+          <p>予約表に記入し、10分以内に確定処理を完了させます。</p>
         </div>
-        <div class="highlight">
-          <strong>ポイント：</strong>電話では詳細な回数券価格の説明は避け、初回体験¥1,500で来院を促しましょう。来院後の対面カウンセリングで丁寧に説明する方が成約率が上がります。
+        <div class="sub-step">
+          <h4><span class="num">3</span> 確定のお伝え</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「ご予約を確定いたしました。当日は10分前にお越しいただけるとスムーズにご案内できます。」</p>
+          </div>
         </div>
-        <div class="section-title">聞かれた場合の参考料金</div>
-        <table class="price-table">
-          <thead>
-            <tr><th>プラン</th><th>料金</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>初回体験</td><td class="price">¥1,500</td></tr>
-            <tr><td>2回目</td><td class="price">¥800</td></tr>
-            <tr><td>10回プラン</td><td class="price">¥66,000（¥6,600/回）</td></tr>
-            <tr><td>20回プラン</td><td class="price">¥110,000（¥5,500/回）</td></tr>
-          </tbody>
-        </table>
       </div>
     </div>
 
-    <!-- シーン4: 症状相談 -->
+    <!-- STEP 9 -->
     <div class="phone-scenario ps4">
       <div class="phone-scenario-header">
-        <span>🩺</span> シーン4：症状の相談・質問
+        <span>👋</span> STEP9 お見送り（電話の締め）
       </div>
       <div class="phone-scenario-body">
-        <div class="script-block customer">
-          <div class="label">お客様</div>
-          <p>「○○の症状があるんですが、そちらで対応できますか？」</p>
-        </div>
-        <div class="script-block">
-          <div class="label">スタッフ ― 回答</div>
-          <p>「お問い合わせいただきありがとうございます。<br>
-          ○○の症状でお悩みなんですね。おつらいですよね。<br>
-          当院では、まず初回に検査とカウンセリングを行い、<br>
-          お客様の状態に最適な施術プランをご提案しております。<br>
-          多くの患者様に改善を実感していただいておりますので、<br>
-          ぜひ一度ご来院いただければと思います。」</p>
-        </div>
-        <div class="highlight red">
-          <strong>注意事項：</strong><br>
-          ・電話で「治ります」「絶対良くなります」等の断言はNG<br>
-          ・医療行為に関する発言は避ける<br>
-          ・「改善が期待できます」「多くの方に喜ばれています」等の表現を使う<br>
-          ・判断に迷う場合は「確認して折り返します」と伝え、院長に相談する
-        </div>
-      </div>
-    </div>
-
-    <!-- シーン5: クレーム -->
-    <div class="phone-scenario ps5">
-      <div class="phone-scenario-header">
-        <span>⚠️</span> シーン5：クレーム・ご不満
-      </div>
-      <div class="phone-scenario-body">
-        <div class="section-title">クレーム対応の基本ステップ</div>
         <div class="sub-step">
-          <h4><span class="num">1</span> まず傾聴する</h4>
-          <p>お客様の話を最後まで聞き、途中で遮らない。「おっしゃる通りです」「ご不快な思いをさせてしまい申し訳ございません」</p>
+          <h4><span class="num">1</span> お礼と締めの挨拶</h4>
+          <div class="script-block">
+            <div class="label">スタッフ</div>
+            <p>「○○様、お電話ありがとうございました。<br>
+            ○月○日にお会いできるのを楽しみにしております。<br>
+            何かご不明な点がございましたら、お気軽にお電話ください。<br>
+            それでは失礼いたします。」</p>
+          </div>
         </div>
         <div class="sub-step">
-          <h4><span class="num">2</span> 事実確認</h4>
-          <p>日時・担当者・内容を正確にメモする。復唱して確認する。</p>
+          <h4><span class="num">2</span> 電話を切る</h4>
+          <p>お客様が先に切るのを待ってから、静かに受話器を置きます。</p>
         </div>
-        <div class="sub-step">
-          <h4><span class="num">3</span> 謝罪と対応策の提示</h4>
-          <p>「大変申し訳ございません。すぐに担当者（院長）に確認し、ご連絡させていただきます。」</p>
-        </div>
-        <div class="sub-step">
-          <h4><span class="num">4</span> 院長へエスカレーション</h4>
-          <p>内容をすべてメモし、速やかに院長へ報告する。</p>
-        </div>
-        <div class="sub-step">
-          <h4><span class="num">5</span> 折り返し連絡</h4>
-          <p>約束した時間内に必ず折り返す。対応策を明確に伝える。</p>
-        </div>
-        <div class="highlight red">
-          <strong>絶対にやってはいけないこと：</strong><br>
-          ・お客様と口論する<br>
-          ・「でも」「ですが」で反論する<br>
-          ・たらい回しにする<br>
-          ・その場で勝手に判断して約束する（返金・無料施術等）
+        <div class="highlight">
+          <strong>電話を切った後：</strong><br>
+          ・予約表を再確認<br>
+          ・必要に応じてスタッフに共有<br>
+          ・リマインドメッセージの設定
         </div>
       </div>
     </div>
@@ -1819,12 +1891,15 @@
             <li><strong>お客様名：</strong>フルネーム（読み仮名）</li>
             <li><strong>電話番号：</strong>折り返し先</li>
             <li><strong>用件：</strong>新規予約 / 変更 / キャンセル / 問い合わせ / その他</li>
-            <li><strong>詳細内容：</strong>聞いた内容をメモ</li>
+            <li><strong>症状：</strong>お悩みの内容</li>
+            <li><strong>予約日時：</strong>確定した日時</li>
+            <li><strong>料金案内：</strong>初回¥1,500 / 10回¥66,000 / 20回¥110,000</li>
             <li><strong>対応結果：</strong>予約確定 / 折り返し予定 / 院長へ引継ぎ</li>
           </ul>
         </div>
       </div>
     </section>
+
 
   </div>
 </div>
