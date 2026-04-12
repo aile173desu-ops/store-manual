@@ -26,10 +26,6 @@
   .login-card .logo { font-size: 56px; margin-bottom: 16px; }
   .login-card h1 { font-size: 22px; font-weight: 700; color: #333; margin-bottom: 6px; }
   .login-card p { font-size: 14px; color: #999; margin-bottom: 30px; }
-  .input-group {
-    position: relative;
-    margin-bottom: 20px;
-  }
   .input-group input {
     width: 100%;
     padding: 14px 18px;
@@ -41,6 +37,7 @@
     letter-spacing: 8px;
     font-family: inherit;
     transition: border-color 0.2s;
+    margin-bottom: 20px;
   }
   .input-group input:focus { border-color: #1a73e8; }
   .input-group input.error { border-color: #d32f2f; animation: shake 0.3s; }
@@ -59,26 +56,21 @@
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.2s;
+    transition: transform 0.1s;
   }
-  .login-btn:hover { box-shadow: 0 6px 20px rgba(26,115,232,0.4); }
   .login-btn:active { transform: scale(0.98); }
-  .error-msg {
-    color: #d32f2f;
-    font-size: 13px;
-    margin-top: 12px;
-    display: none;
-  }
+  .error-msg { color: #d32f2f; font-size: 13px; margin-top: 12px; display: none; }
   .error-msg.show { display: block; }
-  .footer-text {
-    margin-top: 24px;
-    font-size: 11px;
-    color: #ccc;
-  }
+  .footer-text { margin-top: 24px; font-size: 11px; color: #ccc; }
 </style>
+<script>
+// Check if already logged in - redirect immediately
+if (localStorage.getItem('store_auth') === 'ok') {
+  window.location.replace('main.html');
+}
+</script>
 </head>
 <body>
-
 <div class="login-card">
   <div class="logo">🔒</div>
   <h1>店舗マニュアル管理</h1>
@@ -90,40 +82,24 @@
   <div class="error-msg" id="errorMsg">パスワードが正しくありません</div>
   <div class="footer-text">AILE SHIGA ― スタッフ専用</div>
 </div>
-
 <script>
-const HASH = '948c710e16a15027a561598d053fdf1e910b9d222cab0ac0d09f23a01cc8416b';
-
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function doLogin() {
-  const pw = document.getElementById('pwInput').value;
-  const hash = await sha256(pw);
-  if (hash === HASH) {
-    localStorage.setItem('auth', hash);
-    window.location.href = 'main.html';
+function doLogin() {
+  var pw = document.getElementById('pwInput').value;
+  if (pw === '0522') {
+    localStorage.setItem('store_auth', 'ok');
+    window.location.replace('main.html');
   } else {
     document.getElementById('pwInput').classList.add('error');
     document.getElementById('errorMsg').classList.add('show');
-    setTimeout(() => {
+    setTimeout(function() {
       document.getElementById('pwInput').classList.remove('error');
     }, 300);
   }
 }
-
-document.getElementById('pwInput').addEventListener('keydown', e => {
+document.getElementById('pwInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') doLogin();
   document.getElementById('errorMsg').classList.remove('show');
 });
-
-// Already authenticated
-(async () => {
-  const s = localStorage.getItem('auth');
-  if (s === HASH) window.location.href = 'main.html';
-})();
 </script>
 </body>
 </html>

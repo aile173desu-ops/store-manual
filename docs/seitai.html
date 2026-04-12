@@ -1615,7 +1615,7 @@
 
 <script>
 // Auth guard
-(async()=>{const H='948c710e16a15027a561598d053fdf1e910b9d222cab0ac0d09f23a01cc8416b';const s=localStorage.getItem('auth');if(s!==H){window.location.href='../index.html';return;}})();
+if(localStorage.getItem('store_auth')!=='ok'){window.location.replace('../index.html');}
 
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
