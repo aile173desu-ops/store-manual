@@ -103,7 +103,7 @@ async function doLogin() {
   const pw = document.getElementById('pwInput').value;
   const hash = await sha256(pw);
   if (hash === HASH) {
-    sessionStorage.setItem('auth', hash);
+    localStorage.setItem('auth', hash);
     window.location.href = 'main.html';
   } else {
     document.getElementById('pwInput').classList.add('error');
@@ -121,7 +121,7 @@ document.getElementById('pwInput').addEventListener('keydown', e => {
 
 // Already authenticated
 (async () => {
-  const s = sessionStorage.getItem('auth');
+  const s = localStorage.getItem('auth');
   if (s === HASH) window.location.href = 'main.html';
 })();
 </script>
