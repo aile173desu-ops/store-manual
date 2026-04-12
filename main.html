@@ -493,23 +493,34 @@
 
   /* Mobile */
   @media (max-width: 768px) {
+    body { display: block; }
     .hamburger { display: flex; }
     .sidebar {
-      position: fixed;
-      left: -300px;
+      position: fixed !important;
+      left: -300px !important;
       top: 0;
+      width: 280px;
+      min-width: 280px;
+      height: 100vh;
       z-index: 300;
       transition: left 0.3s ease;
       box-shadow: 4px 0 20px rgba(0,0,0,0.3);
     }
-    .sidebar.open { left: 0; }
+    .sidebar.open { left: 0 !important; }
     .sidebar-overlay.open { display: block; }
-    .main { width: 100%; }
+    .main { width: 100%; min-width: 0; }
     .topbar { padding: 12px 16px 12px 64px; }
     .content { padding: 16px; }
     .welcome { padding: 40px 16px; }
-    .banner-grid { flex-direction: column; align-items: center; }
-    .banner-card { width: 100%; max-width: 360px; }
+    .welcome .logo { font-size: 48px; }
+    .welcome h2 { font-size: 20px; }
+    .welcome p { font-size: 13px; }
+    .banner-grid { flex-direction: column; align-items: center; gap: 16px; }
+    .banner-card { width: 100%; max-width: 100%; }
+    .banner-visual { height: 120px; }
+    .banner-visual .banner-icon { font-size: 48px; }
+    .banner-visual .banner-bg-text { font-size: 80px; }
+    .banner-body h3 { font-size: 16px; }
     .modal { min-width: auto; width: 90vw; padding: 24px 20px; }
   }
 
