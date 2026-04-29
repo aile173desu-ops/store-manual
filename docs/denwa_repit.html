@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電話対応マニュアル(リピート用) | 治療院現場マニュアル</title>
+<style>
+  :root {
+    --primary: #2c5f7c;
+    --primary-light: #4a8cb0;
+    --accent: #d97706;
+    --accent-light: #fbbf24;
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --border: #e5e7eb;
+    --ng: #dc2626;
+    --ok: #059669;
+    --warn: #d97706;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  .layout { display: flex; max-width: 1400px; margin: 0 auto; }
+  nav.sidebar {
+    width: 280px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 16px;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+  }
+  nav.sidebar h2 {
+    font-size: 14px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px 0;
+  }
+  nav.sidebar ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: chapter;
+  }
+  nav.sidebar li { counter-increment: chapter; margin: 4px 0; }
+  nav.sidebar a {
+    display: block;
+    padding: 8px 12px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.15s;
+  }
+  nav.sidebar a:hover { background: var(--bg); color: var(--primary); }
+  nav.sidebar a::before { content: counter(chapter, decimal-leading-zero) " "; color: var(--text-light); font-weight: 600; }
+  main { flex: 1; padding: 40px 56px; max-width: 100%; min-width: 0; }
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+    padding: 48px 40px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+  }
+  .hero h1 { margin: 0 0 12px 0; font-size: 32px; font-weight: 700; }
+  .hero p { margin: 0; opacity: 0.95; font-size: 16px; }
+  .hero .tagline {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-light);
+    font-size: 18px;
+    font-weight: 600;
+  }
+  section.chapter {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 32px 40px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    scroll-margin-top: 20px;
+  }
+  section.chapter h2 {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 12px;
+    margin: 0 0 24px 0;
+    font-size: 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  section.chapter h2 .num {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  section.chapter h3 {
+    color: var(--primary);
+    margin-top: 28px;
+    font-size: 18px;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+  }
+  section.chapter h4 {
+    color: var(--text);
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  blockquote.core {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-left: 6px solid var(--accent);
+    margin: 16px 0;
+    padding: 20px 24px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #78350f;
+  }
+  blockquote.talk {
+    background: #f0f9ff;
+    border-left: 4px solid var(--primary-light);
+    margin: 12px 0;
+    padding: 16px 20px;
+    border-radius: 6px;
+    color: #0c4a6e;
+    font-style: normal;
+    position: relative;
+  }
+  blockquote.talk::before {
+    content: "💬 トーク例";
+    display: block;
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  blockquote { margin-block-start: 0; margin-block-end: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  th {
+    background: var(--primary);
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #fafaf7; }
+  ul.checklist {
+    list-style: none;
+    padding: 16px 20px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  ul.checklist li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+  }
+  ul.checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .badge.ng { background: #fee2e2; color: var(--ng); }
+  .badge.ok { background: #d1fae5; color: var(--ok); }
+  .badge.warn { background: #fef3c7; color: var(--warn); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 20px;
+    border-top: 4px solid var(--primary);
+  }
+  .card.accent { border-top-color: var(--accent); }
+  .card h4 { margin-top: 0; color: var(--primary); }
+  .card.accent h4 { color: var(--accent); }
+  ol.steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+  ol.steps > li {
+    counter-increment: step;
+    padding: 12px 0 12px 56px;
+    position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  ol.steps > li:last-child { border-bottom: none; }
+  ol.steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    background: var(--primary);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .note {
+    background: #fef3c7;
+    border-left: 4px solid var(--warn);
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+  }
+  .note::before { content: "⚠️ 注意点 "; font-weight: 700; color: var(--warn); }
+  .note ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .intent {
+    background: #f0fdf4;
+    border-left: 4px solid var(--ok);
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 12px 0;
+  }
+  .intent::before { content: "🎯 意図 "; font-weight: 700; color: var(--ok); }
+  @media print {
+    nav.sidebar { display: none; }
+    main { padding: 0; }
+    section.chapter { box-shadow: none; page-break-inside: avoid; }
+    .hero { background: var(--primary) !important; -webkit-print-color-adjust: exact; }
+  }
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    nav.sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+    main { padding: 24px 20px; }
+    section.chapter { padding: 24px 20px; }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 24px; }
+  }
+  .top-link {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--primary);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+  }
+  .top-link:hover { background: var(--primary-light); }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch2">全体の流れ(7ステップ)</a></li>
+    <li><a href="#ch3">名乗り・本人確認・時間確認</a></li>
+    <li><a href="#ch4">担当の名乗り</a></li>
+    <li><a href="#ch5">症状ヒアリング</a></li>
+    <li><a href="#ch6">来院動機の深掘り</a></li>
+    <li><a href="#ch7">共感・見立て・通院方針の予告</a></li>
+    <li><a href="#ch8">不安の解消</a></li>
+    <li><a href="#ch9">5分前来院の合意+結び</a></li>
+    <li><a href="#ch10">電話前後のチェックリスト</a></li>
+    <li><a href="#ch11">やってはいけないこと</a></li>
+    <li><a href="#ch12">想定回答パターン別の対応</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <h1>電話対応マニュアル(リピート用)</h1>
+  <p>予約後・来院前のフォロー電話 標準フロー / 整体エール滋賀</p>
+  <div class="tagline">
+    電話の段階で「ここに行くと決めて良かった」と感じてもらう。
+  </div>
+</header>
+
+<section id="ch2" class="chapter">
+  <h2><span class="num">02</span>全体の流れ(7ステップ)</h2>
+  <table>
+    <thead>
+      <tr><th style="width:60px;">#</th><th>ステップ</th><th>目的</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>名乗り・本人確認・時間確認</td><td>安心して話せる状態をつくる</td></tr>
+      <tr><td>2</td><td>担当の名乗り</td><td>当日のイメージを持ってもらう</td></tr>
+      <tr><td>3</td><td>症状ヒアリング</td><td>困りごとの確認</td></tr>
+      <tr><td>4</td><td>来院動機の深掘り</td><td>"今日来る理由"を本人に言語化してもらう</td></tr>
+      <tr><td>5</td><td>共感・見立て・通院方針の予告</td><td>期待値を整える</td></tr>
+      <tr><td>6</td><td>不安の解消</td><td>当日までの不安を消す</td></tr>
+      <tr><td>7</td><td>5分前来院の合意+結び</td><td>当日の運用準備</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="ch3" class="chapter">
+  <h2><span class="num">03</span>STEP 1: 名乗り・本人確認・時間確認</h2>
+  <blockquote class="talk">
+    整体エール滋賀の〇〇です。<br>
+    〇〇様のお電話でお間違いないでしょうか。<br>
+    ②のご予約をいただいた件で少しお話をさせていただきたくお電話しました。<br>
+    <b>今、5分ほどお時間はよろしいですか。</b>
+  </blockquote>
+  <div class="intent">
+    所要時間を先に伝えることで、相手が身構えずに会話に入れる。
+  </div>
+  <div class="note">
+    <ul>
+      <li>都合が悪ければ折り返し時間を確認して即切り替える</li>
+      <li>「少しお話を…」と用件を伝えてから時間確認の順を守る</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch4" class="chapter">
+  <h2><span class="num">04</span>STEP 2: 担当の名乗り</h2>
+  <blockquote class="talk">
+    <b>今回担当させていただきます、〇〇です。よろしくお願いします。</b>
+  </blockquote>
+  <div class="intent">
+    当日と同じ担当者が電話することで「会ったことがある人」感を作る。
+    名乗ったあと一拍おいて、相手の反応を待つ。
+  </div>
+</section>
+
+<section id="ch5" class="chapter">
+  <h2><span class="num">05</span>STEP 3: 症状ヒアリング</h2>
+  <blockquote class="talk">
+    まずは、<b>今〇〇さんが気になっている症状はどのような状態ですか。</b>
+  </blockquote>
+  <p><b>(回答を待つ)</b></p>
+  <div class="note">
+    <ul>
+      <li>遮らず、最後まで聞く</li>
+      <li>アドバイスや見立てはまだ出さない(STEP 5で出す)</li>
+      <li>メモは取りつつ、相槌は短く</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch6" class="chapter">
+  <h2><span class="num">06</span>STEP 4: 来院動機の深掘り <span class="badge warn">最重要</span></h2>
+  <blockquote class="talk">
+    そのお悩みは、<b>今までどこかに行って直そうとされたことはありますか。</b>
+  </blockquote>
+  <p>(イエス/ノーどちらでも続けて)</p>
+  <blockquote class="talk">
+    <b>なぜ今日こうやって直そうと思ってくださったんですか?</b>
+  </blockquote>
+  <div class="intent">
+    ここで本人が語る"理由"が、後の通院継続の動機になる。
+    「直したい強さ」と「過去の挫折経験」の両方を確認できる。
+  </div>
+
+  <h3>回答を聞いたら、必ず感謝を伝える</h3>
+  <p>感謝は形式的にならず、相手の言葉を一部繰り返してから伝えるとより伝わる。</p>
+  <blockquote class="talk">
+    例:「〇〇で困っていて、今度こそとの想いで来てくださるんですね。本当にありがとうございます。」
+  </blockquote>
+</section>
+
+<section id="ch7" class="chapter">
+  <h2><span class="num">07</span>STEP 5: 共感・見立て・通院方針の予告</h2>
+  <blockquote class="talk">
+    改めて、<b>今のお悩みだと〇〇の影響がかなり強く出ていそうですね。</b><br>
+    でも、<b>しっかり整えていけば、その〇〇の不安はかなり解消できますよ。</b>
+  </blockquote>
+  <blockquote class="talk">
+    <b>今回は、初回で原因をしっかり特定するところまでやる</b>ので安心してください。<br>
+    ただ、<b>その症状は1回で取りきれないことが多く、最初の通い方が大事</b>になってきます。<br>
+    そのあたりも当日しっかりお伝えしますね。
+  </blockquote>
+  <div class="intent">
+    <ul>
+      <li>「初回=原因特定」と位置づけて、初回への期待値を整える</li>
+      <li>「1回では取りきれない」を電話段階で先出しすることで、当日の通院提案がスムーズになる</li>
+      <li>不安にさせるのではなく、「だからこそ最初が大事」という前向きな伝え方で</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch8" class="chapter">
+  <h2><span class="num">08</span>STEP 6: 不安の解消</h2>
+  <blockquote class="talk">
+    <b>今の段階で気になることや、ご不安な点はありますか?</b>
+  </blockquote>
+  <div class="note">
+    <ul>
+      <li>あれば一つずつ丁寧に答える</li>
+      <li>なければ次のステップへスムーズに進む</li>
+      <li>料金・時間・服装・持ち物 などはこの場で確実に解消する</li>
+    </ul>
+  </div>
+</section>
+
+<section id="ch9" class="chapter">
+  <h2><span class="num">09</span>STEP 7: 5分前来院の合意+結び</h2>
+
+  <h3>(1) 時間の確認</h3>
+  <blockquote class="talk">
+    <b>5分前に問診票の記入をしていただきたいので、5分前にご来院いただくことは可能ですか?</b>
+  </blockquote>
+  <div class="intent">
+    必ず「イエス」をもらう。ここで合意がないと当日バタつく。
+  </div>
+
+  <h3>(2) 結びの言葉</h3>
+  <blockquote class="talk">
+    <b>当日、〇〇さんにお会いできることを楽しみにしています。<br>
+    お気をつけてお越しください。</b>
+  </blockquote>
+</section>
+
+<section id="ch10" class="chapter">
+  <h2><span class="num">10</span>電話を切る前のチェックリスト</h2>
+  <ul class="checklist">
+    <li>自分・院・本人の名乗り/確認をした</li>
+    <li>「5分ほど」の時間承諾をもらった</li>
+    <li>症状を最後まで聞けた</li>
+    <li><b>来院理由を本人の言葉で引き出せた</b></li>
+    <li>来院動機への感謝を伝えた</li>
+    <li>見立てと「最初の通い方が大事」を伝えた</li>
+    <li>不安点を確認した</li>
+    <li><b>5分前来院の合意をもらった</b></li>
+    <li>結びの言葉で電話を締めた</li>
+  </ul>
+</section>
+
+<section id="ch11" class="chapter">
+  <h2><span class="num">11</span>やってはいけないこと <span class="badge ng">NG</span></h2>
+  <div class="cards">
+    <div class="card">
+      <h4>症状を電話で診断・断定する</h4>
+      <p>当日の価値が下がる。電話では"見立ての方向性"までに留める。</p>
+    </div>
+    <div class="card">
+      <h4>一方的に話す</h4>
+      <p>電話は <b>聞く7割・話す3割</b> が目安。</p>
+    </div>
+    <div class="card">
+      <h4>通院回数や金額を電話で押す</h4>
+      <p>当日にしっかり伝える前提。電話で売り込まない。</p>
+    </div>
+    <div class="card">
+      <h4>「お大事に」で締める</h4>
+      <p>他院との差別化が消える。決められた結びの言葉を使う。</p>
+    </div>
+  </div>
+</section>
+
+<section id="ch12" class="chapter">
+  <h2><span class="num">12</span>想定回答パターン別の対応</h2>
+  <div class="cards">
+    <div class="card accent">
+      <h4>「なんとなく」「近かったから」</h4>
+      <p>深掘りしすぎず、感謝を厚めに伝える。<br>
+      STEP 5の見立てで"気づき"を提供して、来院動機を電話の中で作る。</p>
+    </div>
+    <div class="card accent">
+      <h4>「忙しくて何度も通えない」</h4>
+      <p>否定しない。<br>
+      「だからこそ初回でしっかり原因を特定して、最短ルートを一緒に考えます」と返す。<br>
+      通院提案は<b>当日に持ち越す</b>。</p>
+    </div>
+    <div class="card accent">
+      <h4>「料金が不安」</h4>
+      <p>HPや予約時案内と<b>同じ金額</b>を端的に伝える。<br>
+      曖昧にしない / 値引き示唆をしない。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<a href="#" class="top-link" title="トップへ">↑</a>
+
+</body>
+</html>

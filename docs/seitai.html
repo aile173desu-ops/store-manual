@@ -1598,14 +1598,111 @@
 <!-- TAB 3: 電話対応 -->
 <!-- ============================================ -->
 <div class="tab-content" id="tab-denwa">
-  <div style="max-width:800px; margin:0 auto; padding:16px 8px;">
-    <div style="text-align:center; margin-bottom:12px;">
-      <a href="denwa_manual.pdf" download style="display:inline-block; padding:8px 18px; background:#1a73e8; color:#fff; text-decoration:none; border-radius:8px; font-size:13px; font-weight:600;">PDFダウンロード</a>
+
+  <style>
+    .denwa-subtabs {
+      display: flex;
+      gap: 8px;
+      max-width: 880px;
+      margin: 16px auto 0;
+      padding: 0 12px;
+    }
+    .denwa-subtab {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #d0d7de;
+      background: #f6f8fa;
+      color: #57606a;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      user-select: none;
+      transition: all 0.15s;
+      border-bottom: none;
+    }
+    .denwa-subtab:hover { background: #eef1f4; color: #24292f; }
+    .denwa-subtab.active { color: #fff; transform: translateY(-1px); }
+    .denwa-subtab[data-sub="hp"].active { background: linear-gradient(135deg,#fb6f3e,#c4451d); border-color: #c4451d; }
+    .denwa-subtab[data-sub="rp"].active { background: linear-gradient(135deg,#00a99d,#00766c); border-color: #00766c; }
+    .denwa-subcontent { display: none; }
+    .denwa-subcontent.active { display: block; }
+
+    .pm-wrap { max-width: 880px; margin: 0 auto; padding: 16px 12px 40px; }
+    .pm-paper { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+    .pm-meta { display: flex; justify-content: space-between; font-size: 11px; color: #6b7280; margin-bottom: 28px; flex-wrap: wrap; gap: 8px; }
+    .pm-meta-tag { background: #e0f2f1; color: #00766c; padding: 4px 12px; border-radius: 14px; font-weight: 700; }
+    .pm-title-block { text-align: center; margin-bottom: 28px; }
+    .pm-title-block .icon-line { color: #00766c; font-size: 13px; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 6px; }
+    .pm-title-block h1 { font-size: 30px; color: #00766c; margin: 0 0 8px 0; letter-spacing: 0.05em; border: none; padding: 0; }
+    .pm-title-block .sub { font-size: 13px; color: #6b7280; }
+    .pm-flow { background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+    .pm-flow-title { font-size: 13px; font-weight: 700; color: #00766c; margin-bottom: 10px; }
+    .pm-flow-title::before { content: "📋 "; }
+    .pm-flow-steps { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 13px; }
+    .pm-flow-step { color: #00766c; font-weight: 600; white-space: nowrap; }
+    .pm-flow-arrow { color: #00a99d; font-weight: 700; }
+    .pm-time { font-size: 12px; color: #6b7280; margin-top: 10px; }
+    .pm-time::before { content: "⏱ "; color: #00766c; }
+    .pm-step { display: flex; gap: 18px; margin-bottom: 24px; align-items: flex-start; }
+    .pm-step-badge { flex-shrink: 0; width: 56px; background: linear-gradient(135deg,#fff,#f6f8fa); border: 2px solid #00766c; border-radius: 10px; padding: 10px 4px; text-align: center; }
+    .pm-step-badge .step-label { font-size: 9px; letter-spacing: 0.15em; color: #00766c; font-weight: 700; }
+    .pm-step-badge .step-num { font-size: 24px; font-weight: 800; color: #00766c; line-height: 1.1; }
+    .pm-step-body { flex: 1; border-left: 3px solid #00766c; padding-left: 18px; }
+    .pm-step-body h2 { font-size: 19px; color: #00766c; margin: 0 0 4px 0; border: none; padding: 0; }
+    .pm-step-body .step-desc { font-size: 12px; color: #6b7280; margin-bottom: 12px; }
+    .pm-substep { background: #f6f8fa; border-radius: 8px; padding: 12px 16px; margin-top: 10px; border-left: 3px solid #00a99d; }
+    .pm-substep-title { font-size: 12px; font-weight: 700; color: #00766c; margin-bottom: 6px; }
+    .pm-substep-title::before { content: "💬 "; }
+    .pm-quote { background: #fff; border: 1px dashed #00a99d; border-radius: 8px; padding: 10px 14px; margin: 6px 0; color: #1f2937; font-size: 14px; line-height: 1.7; }
+    .pm-tip { background: #fffbeb; border-left: 3px solid #f59e0b; padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #78350f; margin-top: 6px; }
+    .pm-tip::before { content: "💡 "; font-weight: 700; }
+    .pm-ng-ok { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .pm-ng, .pm-ok { padding: 8px 12px; border-radius: 6px; font-size: 12px; }
+    .pm-ng { background: #fef2f2; color: #991b1b; border-left: 3px solid #dc2626; }
+    .pm-ok { background: #f0fdf4; color: #166534; border-left: 3px solid #16a34a; }
+    @media (max-width: 700px) {
+      .pm-step { gap: 10px; }
+      .pm-step-badge { width: 44px; padding: 8px 2px; }
+      .pm-step-badge .step-num { font-size: 18px; }
+      .pm-step-body h2 { font-size: 16px; }
+      .pm-ng-ok { grid-template-columns: 1fr; }
+      .pm-paper { padding: 18px 14px; }
+      .pm-title-block h1 { font-size: 22px; }
+    }
+  </style>
+
+  <div class="denwa-subtabs">
+    <div class="denwa-subtab active" data-sub="hp" onclick="switchDenwaSub('hp')">🌶️ ホットペッパー用電話対応</div>
+    <div class="denwa-subtab" data-sub="rp" onclick="switchDenwaSub('rp')">💚 リピット用電話対応</div>
+  </div>
+
+  <!-- ===== ホットペッパー用 (既存PDFマニュアル) ===== -->
+  <div class="denwa-subcontent active" id="denwa-sub-hp">
+    <div style="max-width:800px; margin:0 auto; padding:16px 8px;">
+      <div style="text-align:center; margin-bottom:12px;">
+        <a href="denwa_manual.pdf" download target="_blank" style="display:inline-block; padding:8px 18px; background:#fb6f3e; color:#fff; text-decoration:none; border-radius:8px; font-size:13px; font-weight:600;">📄 PDFダウンロード (ホットペッパー用)</a>
+      </div>
+      <img src="images/denwa/page-1.png" alt="電話対応マニュアル 1/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      <img src="images/denwa/page-2.png" alt="電話対応マニュアル 2/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      <img src="images/denwa/page-3.png" alt="電話対応マニュアル 3/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+      <img src="images/denwa/page-4.png" alt="電話対応マニュアル 4/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
     </div>
-    <img src="images/denwa/page-1.png" alt="電話対応マニュアル 1/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-    <img src="images/denwa/page-2.png" alt="電話対応マニュアル 2/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-    <img src="images/denwa/page-3.png" alt="電話対応マニュアル 3/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-    <img src="images/denwa/page-4.png" alt="電話対応マニュアル 4/4" style="width:100%; height:auto; display:block; margin-bottom:8px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+  </div>
+
+  <!-- ===== リピット用電話対応 (denwa_repit.html を埋込) ===== -->
+  <div class="denwa-subcontent" id="denwa-sub-rp">
+    <div style="max-width:1200px; margin:0 auto; padding:8px;">
+      <div style="text-align:center; margin-bottom:12px;">
+        <a href="denwa_repit.html" target="_blank" style="display:inline-block; padding:8px 18px; background:#00a99d; color:#fff; text-decoration:none; border-radius:8px; font-size:13px; font-weight:600;">🔗 別タブで開く</a>
+      </div>
+      <iframe
+        src="denwa_repit.html"
+        style="width:100%; height:calc(100vh - 220px); min-height:720px; border:1px solid #d1fae5; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06); background:#fff;"
+        title="リピット用 電話対応マニュアル">
+      </iframe>
+    </div>
   </div>
 </div>
 
@@ -1627,11 +1724,29 @@ function switchTab(tabId) {
   window.scrollTo({ top: 0 });
 }
 
+function switchDenwaSub(sub) {
+  document.querySelectorAll('.denwa-subtab').forEach(t => {
+    t.classList.toggle('active', t.dataset.sub === sub);
+  });
+  document.querySelectorAll('.denwa-subcontent').forEach(c => {
+    c.classList.toggle('active', c.id === 'denwa-sub-' + sub);
+  });
+}
+
 function scrollToEl(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   return false;
 }
+
+// 日付スタンプ自動表示
+(function setDateStamp() {
+  const el = document.getElementById('pm-date-stamp');
+  if (!el) return;
+  const d = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  el.textContent = `${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+})();
 </script>
 </body>
 </html>
